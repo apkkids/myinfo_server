@@ -1,6 +1,6 @@
-CREATE DATABASE `myauthorization` DEFAULT CHARACTER SET utf8;
+CREATE DATABASE `myinfo` DEFAULT CHARACTER SET utf8;
 
-USE `myauthorization`;
+USE `myinfo`;
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 --  Table structure for `user`
