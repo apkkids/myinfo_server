@@ -18,12 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    MyUserMapper mapper;
-    @Autowired
     SysuserMapper sysuserMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysuserBean bean = sysuserMapper.selectByUsername(username);
+//        从数据库中查询用户（包括角色列表）
+        SysuserBean bean = sysuserMapper.selectUserWithRolesByUsername(username);
         if (bean == null) {
             throw new UsernameNotFoundException("数据库中无此用户！");
         }

@@ -18,7 +18,7 @@ import java.util.List;
 @Mapper
 public interface SysuserMapper {
     /**
-     * 从数据库中查询用户
+     * 从数据库中查询用户(不包括角色)
      *
      * @param username
      * @return
@@ -27,9 +27,8 @@ public interface SysuserMapper {
     SysuserBean selectByUsername(@Param("username") String username);
 
     /**
-     * 从数据库中查询用户和角色，参考这篇文章使用@Many和@One
+     * 从数据库中查询用户（包括角色，角色是一个List<Role>，使用二次查询），参考这篇文章使用@Many和@One
      * https://blog.csdn.net/wfq784967698/article/details/78786001
-     *
      * @param username
      * @return
      */
@@ -43,10 +42,8 @@ public interface SysuserMapper {
 
     /**
      * 根据userid从角色表中选择相应的角色，在selectUserWithRolesByUsername中使用
-     *
      * @return
      */
     @Select("SELECT r.* FROM sysuser_role u,role r where u.role_id=r.id AND u.sysuser_id=#{id}")
     List<Role> queryRoleBySysuserid(@Param("id") Integer id);
-
 }

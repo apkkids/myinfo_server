@@ -39,8 +39,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             }
             //逐一进行角色匹配
             for (GrantedAuthority authority : userAuthorities) {
-                if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                    return; //用户具有ROLE_ADMIN权限，则可以访问所有资源
+                if (authority.getAuthority().equals("ROLE_admin")) {
+                    return; //用户具有ROLE_admin权限，则可以访问所有资源
                 }
                 if (authority.getAuthority().equals(role)) {
                     return;  //匹配成功就直接返回
