@@ -17,7 +17,7 @@ import java.util.List;
  * Description:系统用户Sysuser对应的Bean，数据库表为sysuser，它继承了UserDetails，用于验证系统用户拥有的权限
  */
 @Component
-public class SysuserBean implements UserDetails {
+public class SysUser implements UserDetails {
 //      `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'hrID',
 //            `name` varchar(32) DEFAULT NULL COMMENT '姓名',
 //            `phone` char(11) DEFAULT NULL COMMENT '手机号码',

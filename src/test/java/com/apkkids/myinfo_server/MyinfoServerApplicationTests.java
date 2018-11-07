@@ -1,7 +1,10 @@
 package com.apkkids.myinfo_server;
 
+import com.apkkids.myinfo_server.bean.Menu;
+import com.apkkids.myinfo_server.bean.MenuMeta;
 import com.apkkids.myinfo_server.bean.Role;
-import com.apkkids.myinfo_server.bean.SysuserBean;
+import com.apkkids.myinfo_server.bean.SysUser;
+import com.apkkids.myinfo_server.mapper.MenuMapper;
 import com.apkkids.myinfo_server.mapper.SysuserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +20,8 @@ import java.util.List;
 public class MyinfoServerApplicationTests {
     @Autowired
     SysuserMapper mapper;
+    @Autowired
+    MenuMapper menuMapper;
 
     @Test
     public void contextLoads() {
@@ -24,7 +29,7 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testSysuserMapper() {
-        SysuserBean bean = mapper.selectByUsername("admin");
+        SysUser bean = mapper.selectByUsername("admin");
         if (bean == null) {
             throw new UsernameNotFoundException("数据库中无此用户！");
         }
@@ -36,11 +41,38 @@ public class MyinfoServerApplicationTests {
         }
         System.out.println("username=" + bean.getUsername());
 
-
         List<Role> roles = bean.getRoles();
-//        List<Role> roles = mapper.queryRoleBySysuserid(3);
         for (Role r : roles) {
             System.out.println(r.getNameZh());
+        }
+    }
+
+    @Test
+    public void testMenuMapper() {
+        //测试getRolesByMenuId
+//        List<Role> roles = menuMapper.getRolesByMenuId(7);
+//        for (Role r:roles             ) {
+//            System.out.println(r.getId()+", "+r.getName()+", "+r.getNameZh());
+//        }
+
+        List<Menu> menuList = menuMapper.getAllMenu();
+        if (menuList == null) {
+            System.out.println("数据库中无此menu");
+        }
+        for (Menu menu : menuList) {
+            System.out.println(menu.getName() + "," + menu.getUrl() + ", " + menu.getComponent());
+            System.out.println("=======roles=============");
+            List<Role> roles = menu.getRoles();
+            if (roles != null && roles.size() > 1) {
+                for (Role r : roles) {
+                    System.out.println(r.getId() + ", " + r.getName() + ", " + r.getNameZh());
+                }
+            }
+            System.out.println("=======MenuMeta=============");
+            MenuMeta memuMeta = menu.getMeta();
+            if (memuMeta != null) {
+                System.out.println(memuMeta.isKeepAlive() + "," + memuMeta.isRequireAuth());
+            }
         }
     }
 }

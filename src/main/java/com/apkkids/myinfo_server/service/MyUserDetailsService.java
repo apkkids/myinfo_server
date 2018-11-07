@@ -1,8 +1,6 @@
 package com.apkkids.myinfo_server.service;
 
-import com.apkkids.myinfo_server.bean.MyUserBean;
-import com.apkkids.myinfo_server.bean.SysuserBean;
-import com.apkkids.myinfo_server.mapper.MyUserMapper;
+import com.apkkids.myinfo_server.bean.SysUser;
 import com.apkkids.myinfo_server.mapper.SysuserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        从数据库中查询用户（包括角色列表）
-        SysuserBean bean = sysuserMapper.selectUserWithRolesByUsername(username);
+        SysUser bean = sysuserMapper.selectUserWithRolesByUsername(username);
         if (bean == null) {
             throw new UsernameNotFoundException("数据库中无此用户！");
         }

@@ -1,7 +1,7 @@
 package com.apkkids.myinfo_server.mapper;
 
 import com.apkkids.myinfo_server.bean.Role;
-import com.apkkids.myinfo_server.bean.SysuserBean;
+import com.apkkids.myinfo_server.bean.SysUser;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +19,11 @@ import java.util.List;
 public interface SysuserMapper {
     /**
      * 从数据库中查询用户(不包括角色)
-     *
      * @param username
      * @return
      */
     @Select("select * from sysuser where username = #{username}")
-    SysuserBean selectByUsername(@Param("username") String username);
+    SysUser selectByUsername(@Param("username") String username);
 
     /**
      * 从数据库中查询用户（包括角色，角色是一个List<Role>，使用二次查询），参考这篇文章使用@Many和@One
@@ -38,7 +37,7 @@ public interface SysuserMapper {
     }
     )
     @Select("select * from sysuser where username = #{username}")
-    SysuserBean selectUserWithRolesByUsername(@Param("username") String username);
+    SysUser selectUserWithRolesByUsername(@Param("username") String username);
 
     /**
      * 根据userid从角色表中选择相应的角色，在selectUserWithRolesByUsername中使用
