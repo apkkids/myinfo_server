@@ -10,29 +10,134 @@ Target Server Type    : MYSQL
 Target Server Version : 50640
 File Encoding         : 65001
 
-Date: 2018-11-06 21:19:47
+Date: 2018-11-07 21:45:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `resource`
+-- Table structure for `menu`
 -- ----------------------------
-DROP TABLE IF EXISTS `resource`;
-CREATE TABLE `resource` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `url` varchar(255) DEFAULT NULL COMMENT '资源',
-  `roles` varchar(255) DEFAULT NULL COMMENT '所需角色',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(64) DEFAULT NULL,
+  `path` varchar(64) DEFAULT NULL,
+  `component` varchar(64) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  `iconCls` varchar(64) DEFAULT NULL,
+  `keepAlive` tinyint(1) DEFAULT NULL,
+  `requireAuth` tinyint(1) DEFAULT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `parentId` (`parentId`),
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of resource
+-- Records of menu
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', '/depart1/**', 'ROLE_ADMIN,ROLE_MANAGER,ROLE_DEPART1');
-INSERT INTO `resource` VALUES ('2', '/depart2/**', 'ROLE_ADMIN,ROLE_MANAGER,ROLE_DEPART2');
-INSERT INTO `resource` VALUES ('3', '/user/**', 'ROLE_ADMIN,ROLE_USER');
-INSERT INTO `resource` VALUES ('4', '/admin/**', 'ROLE_ADMIN');
+INSERT INTO `menu` VALUES ('1', '/', null, null, '所有', null, null, null, null, '1');
+INSERT INTO `menu` VALUES ('2', '/', '/home', 'Home', '员工资料', 'fa fa-user-circle-o', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('3', '/', '/home', 'Home', '人事管理', 'fa fa-address-card-o', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('4', '/', '/home', 'Home', '薪资管理', 'fa fa-money', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('5', '/', '/home', 'Home', '统计管理', 'fa fa-bar-chart', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('6', '/', '/home', 'Home', '系统管理', 'fa fa-windows', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('7', '/employee/basic/**', '/emp/basic', 'EmpBasic', '基本资料', null, null, '1', '2', '1');
+INSERT INTO `menu` VALUES ('8', '/employee/advanced/**', '/emp/adv', 'EmpAdv', '高级资料', null, null, '1', '2', '0');
+INSERT INTO `menu` VALUES ('9', '/personnel/emp/**', '/per/emp', 'PerEmp', '员工资料', null, null, '1', '3', '0');
+INSERT INTO `menu` VALUES ('10', '/personnel/ec/**', '/per/ec', 'PerEc', '员工奖惩', null, null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('11', '/personnel/train/**', '/per/train', 'PerTrain', '员工培训', null, null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('12', '/personnel/salary/**', '/per/salary', 'PerSalary', '员工调薪', null, null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('13', '/personnel/remove/**', '/per/mv', 'PerMv', '员工调动', null, null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('14', '/salary/sob/**', '/sal/sob', 'SalSob', '工资账套管理', null, null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('15', '/salary/sobcfg/**', '/sal/sobcfg', 'SalSobCfg', '员工账套设置', null, null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('16', '/salary/table/**', '/sal/table', 'SalTable', '工资表管理', null, null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('17', '/salary/month/**', '/sal/month', 'SalMonth', '月末处理', null, null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('18', '/salary/search/**', '/sal/search', 'SalSearch', '工资表查询', null, null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('19', '/statistics/all/**', '/sta/all', 'StaAll', '综合信息统计', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('20', '/statistics/score/**', '/sta/score', 'StaScore', '员工积分统计', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('21', '/statistics/personnel/**', '/sta/pers', 'StaPers', '人事信息统计', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('22', '/statistics/recored/**', '/sta/record', 'StaRecord', '人事记录统计', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('23', '/system/basic/**', '/sys/basic', 'SysBasic', '基础信息设置', null, null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('24', '/system/cfg/**', '/sys/cfg', 'SysCfg', '系统管理', null, null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('25', '/system/log/**', '/sys/log', 'SysLog', '操作日志管理', null, null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('26', '/system/hr/**', '/sys/hr', 'SysHr', '操作员管理', null, null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('27', '/system/data/**', '/sys/data', 'SysData', '备份恢复数据库', null, null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('28', '/system/init/**', '/sys/init', 'SysInit', '初始化数据库', null, null, '1', '6', '1');
+
+-- ----------------------------
+-- Table structure for `menu_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `menu_role`;
+CREATE TABLE `menu_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `menu_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mid` (`menu_id`),
+  KEY `rid` (`role_id`),
+  CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
+  CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu_role
+-- ----------------------------
+INSERT INTO `menu_role` VALUES ('161', '7', '3');
+INSERT INTO `menu_role` VALUES ('162', '7', '6');
+INSERT INTO `menu_role` VALUES ('163', '9', '6');
+INSERT INTO `menu_role` VALUES ('164', '10', '6');
+INSERT INTO `menu_role` VALUES ('165', '11', '6');
+INSERT INTO `menu_role` VALUES ('166', '12', '6');
+INSERT INTO `menu_role` VALUES ('167', '13', '6');
+INSERT INTO `menu_role` VALUES ('168', '14', '6');
+INSERT INTO `menu_role` VALUES ('169', '15', '6');
+INSERT INTO `menu_role` VALUES ('170', '16', '6');
+INSERT INTO `menu_role` VALUES ('171', '17', '6');
+INSERT INTO `menu_role` VALUES ('172', '18', '6');
+INSERT INTO `menu_role` VALUES ('173', '19', '6');
+INSERT INTO `menu_role` VALUES ('174', '20', '6');
+INSERT INTO `menu_role` VALUES ('175', '21', '6');
+INSERT INTO `menu_role` VALUES ('176', '22', '6');
+INSERT INTO `menu_role` VALUES ('177', '23', '6');
+INSERT INTO `menu_role` VALUES ('178', '25', '6');
+INSERT INTO `menu_role` VALUES ('179', '26', '6');
+INSERT INTO `menu_role` VALUES ('180', '27', '6');
+INSERT INTO `menu_role` VALUES ('181', '28', '6');
+INSERT INTO `menu_role` VALUES ('182', '24', '6');
+INSERT INTO `menu_role` VALUES ('247', '7', '4');
+INSERT INTO `menu_role` VALUES ('248', '8', '4');
+INSERT INTO `menu_role` VALUES ('249', '11', '4');
+INSERT INTO `menu_role` VALUES ('250', '7', '2');
+INSERT INTO `menu_role` VALUES ('251', '8', '2');
+INSERT INTO `menu_role` VALUES ('252', '9', '2');
+INSERT INTO `menu_role` VALUES ('253', '10', '2');
+INSERT INTO `menu_role` VALUES ('254', '12', '2');
+INSERT INTO `menu_role` VALUES ('255', '13', '2');
+INSERT INTO `menu_role` VALUES ('256', '7', '1');
+INSERT INTO `menu_role` VALUES ('257', '8', '1');
+INSERT INTO `menu_role` VALUES ('258', '9', '1');
+INSERT INTO `menu_role` VALUES ('259', '10', '1');
+INSERT INTO `menu_role` VALUES ('260', '11', '1');
+INSERT INTO `menu_role` VALUES ('261', '12', '1');
+INSERT INTO `menu_role` VALUES ('262', '13', '1');
+INSERT INTO `menu_role` VALUES ('263', '14', '1');
+INSERT INTO `menu_role` VALUES ('264', '15', '1');
+INSERT INTO `menu_role` VALUES ('265', '16', '1');
+INSERT INTO `menu_role` VALUES ('266', '17', '1');
+INSERT INTO `menu_role` VALUES ('267', '18', '1');
+INSERT INTO `menu_role` VALUES ('268', '19', '1');
+INSERT INTO `menu_role` VALUES ('269', '20', '1');
+INSERT INTO `menu_role` VALUES ('270', '21', '1');
+INSERT INTO `menu_role` VALUES ('271', '22', '1');
+INSERT INTO `menu_role` VALUES ('272', '23', '1');
+INSERT INTO `menu_role` VALUES ('273', '24', '1');
+INSERT INTO `menu_role` VALUES ('274', '25', '1');
+INSERT INTO `menu_role` VALUES ('275', '26', '1');
+INSERT INTO `menu_role` VALUES ('276', '27', '1');
+INSERT INTO `menu_role` VALUES ('277', '28', '1');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -100,26 +205,3 @@ CREATE TABLE `sysuser_role` (
 -- ----------------------------
 INSERT INTO `sysuser_role` VALUES ('1', '3', '6');
 INSERT INTO `sysuser_role` VALUES ('2', '3', '13');
-
--- ----------------------------
--- Table structure for `user`
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) DEFAULT NULL COMMENT '姓名',
-  `address` varchar(64) DEFAULT NULL COMMENT '联系地址',
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '账号',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '密码',
-  `roles` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Adam', 'beijing', 'adam', '$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6', 'ROLE_USER');
-INSERT INTO `user` VALUES ('2', 'SuperMan', 'shanghang', 'super', '$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6', 'ROLE_USER,ROLE_ADMIN');
-INSERT INTO `user` VALUES ('3', 'Manager', 'beijing', 'manager', '$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6', 'ROLE_USER,ROLE_MANAGER');
-INSERT INTO `user` VALUES ('4', 'User1', 'shanghang', 'user1', '$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6', 'ROLE_USER,ROLE_DEPART1');
-INSERT INTO `user` VALUES ('5', 'User2', 'shanghang', 'user2', '$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6', 'ROLE_USER,ROLE_DEPART2');
