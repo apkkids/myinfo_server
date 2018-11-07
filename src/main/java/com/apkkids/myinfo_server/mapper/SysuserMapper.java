@@ -1,9 +1,8 @@
 package com.apkkids.myinfo_server.mapper;
 
+import com.apkkids.myinfo_server.bean.Role;
 import com.apkkids.myinfo_server.bean.SysuserBean;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.List;
 public interface SysuserMapper {
     /**
      * 从数据库中查询用户
+     *
      * @param username
      * @return
      */
@@ -27,11 +27,26 @@ public interface SysuserMapper {
     SysuserBean selectByUsername(@Param("username") String username);
 
     /**
-     * 从数据库中查询用户和角色
+     * 从数据库中查询用户和角色，参考这篇文章使用@Many和@One
+     * https://blog.csdn.net/wfq784967698/article/details/78786001
+     *
      * @param username
      * @return
      */
-//    @Select("SELECT u.* , r.id as rid, r.name as rname,r.nameZh AS rnameZh FROM (( sysuser u LEFT JOIN sysuser_role u_r on ((u.id=u_r.sysuser_id)))\n" +
-//            "//    LEFT JOIN role r on ((u_r.role_id=r.id))) where u.username=#{username}")
-//    List<SysuserBean> selectUserWithRolesByUsername(@Param("username") String username);
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "roles", column = "id", many = @Many(select = "com.apkkids.myinfo_server.mapper.SysuserMapper.queryRoleBySysuserid"))
+    }
+    )
+    @Select("select * from sysuser where username = #{username}")
+    SysuserBean selectUserWithRolesByUsername(@Param("username") String username);
+
+    /**
+     * 根据userid从角色表中选择相应的角色，在selectUserWithRolesByUsername中使用
+     *
+     * @return
+     */
+    @Select("SELECT r.* FROM sysuser_role u,role r where u.role_id=r.id AND u.sysuser_id=#{id}")
+    List<Role> queryRoleBySysuserid(@Param("id") Integer id);
+
 }

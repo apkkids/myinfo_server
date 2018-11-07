@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Author:      wxb
@@ -41,6 +42,16 @@ public class SysuserBean implements UserDetails{
     private String password;
     private String userface;
     private String remark;
+    //roles属性要多用一次关联查询得出
+private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public Integer getId() {
         return id;
