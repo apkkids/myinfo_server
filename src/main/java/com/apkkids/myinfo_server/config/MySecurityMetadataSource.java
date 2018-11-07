@@ -1,10 +1,8 @@
 package com.apkkids.myinfo_server.config;
 
 import com.apkkids.myinfo_server.bean.Menu;
-import com.apkkids.myinfo_server.bean.MyResourceBean;
 import com.apkkids.myinfo_server.bean.Role;
 import com.apkkids.myinfo_server.mapper.MenuMapper;
-import com.apkkids.myinfo_server.mapper.ResourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

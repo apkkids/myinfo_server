@@ -24,8 +24,8 @@ public interface MenuMapper {
             "r.nameZh AS rnamezh\n" +
             "FROM\n" +
             "menu m\n" +
-            "LEFT JOIN menu_role mr ON m.id = mr.mid\n" +
-            "LEFT JOIN role r ON mr.rid = r.id\n" +
+            "LEFT JOIN menu_role mr ON m.id = mr.menu_id\n" +
+            "LEFT JOIN role r ON mr.role_id = r.id\n" +
             "WHERE\n" +
             "m.enabled = TRUE\n" +
             "ORDER BY\n" +
@@ -49,8 +49,8 @@ public interface MenuMapper {
             "r.nameZh AS rnamezh\n" +
             "FROM\n" +
             "menu m\n" +
-            "LEFT JOIN menu_role mr ON m.id = mr.mid\n" +
-            "LEFT JOIN role r ON mr.rid = r.id\n" +
+            "LEFT JOIN menu_role mr ON m.id = mr.menu_id\n" +
+            "LEFT JOIN role r ON mr.role_id = r.id\n" +
             "WHERE\n" +
             "m.enabled = TRUE and m.id= #{id} order by rid asc")
     @Results({
