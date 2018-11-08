@@ -5,7 +5,7 @@ import com.apkkids.myinfo_server.bean.MenuMeta;
 import com.apkkids.myinfo_server.bean.Role;
 import com.apkkids.myinfo_server.bean.SysUser;
 import com.apkkids.myinfo_server.mapper.MenuMapper;
-import com.apkkids.myinfo_server.mapper.SysuserMapper;
+import com.apkkids.myinfo_server.mapper.SysUserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.List;
 @SpringBootTest
 public class MyinfoServerApplicationTests {
     @Autowired
-    SysuserMapper mapper;
+    SysUserMapper mapper;
     @Autowired
     MenuMapper menuMapper;
 
@@ -29,18 +29,16 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testSysuserMapper() {
-        SysUser bean = mapper.selectByUsername("admin");
+        List<SysUser> list = mapper.getAllSysUser(null);
+        for (SysUser user:list             ) {
+            System.out.println(user.getName());
+        }
+
+        SysUser bean = mapper.loadUserByUsername("admin");
         if (bean == null) {
             throw new UsernameNotFoundException("数据库中无此用户！");
         }
         System.out.println("username=" + bean.getUsername());
-
-        bean = mapper.selectUserWithRolesByUsername("admin");
-        if (bean == null) {
-            throw new UsernameNotFoundException("数据库中无此用户！");
-        }
-        System.out.println("username=" + bean.getUsername());
-
         List<Role> roles = bean.getRoles();
         for (Role r : roles) {
             System.out.println(r.getNameZh());

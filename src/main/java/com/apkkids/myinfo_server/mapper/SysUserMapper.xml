@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.apkkids.myinfo_server.mapper.SysUserMapper">
+    <resultMap id="SysUserResultMap" type="com.apkkids.myinfo_server.bean.SysUser">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="enabled" property="enabled"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="userface" property="userface"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <resultMap id="lazyLoadRoles" type="com.apkkids.myinfo_server.bean.SysUser" extends="SysUserResultMap">
+        <collection property="roles" ofType="com.apkkids.myinfo_server.bean.Role"
+                    select="com.apkkids.myinfo_server.mapper.SysUserMapper.getRolsBySysUserId"
+                    column="id">
+        </collection>
+    </resultMap>
+
+    <!--搜索所有的SysUser-->
+    <select id="getAllSysUser" resultType="com.apkkids.myinfo_server.bean.SysUser">
+        SELECT * FROM sysuser
+        <if test="currentId!=null">
+            WHERE id != #{currentId}
+        </if>
+    </select>
+
+    <!--根据SysUser的id选择所有的角色Role，返回Role集合-->
+    <select id="getRolsBySysUserId" resultType="com.apkkids.myinfo_server.bean.Role">
+         SELECT r.* from role r ,sysuser_role sr where sr.role_id=r.id and sr.sysuser_id = #{id}
+    </select>
+
+    <!--根据username搜索系统用户，带有角色信息-->
+    <select id="loadUserByUsername" resultMap="lazyLoadRoles">
+        SELECT * FROM sysuser WHERE username = #{username}
+    </select>
+
+    <select id="selectByUsername" resultType="com.apkkids.myinfo_server.bean.SysUser">
+        select * from sysuser WHERE username=#{username};
+    </select>
+</mapper>

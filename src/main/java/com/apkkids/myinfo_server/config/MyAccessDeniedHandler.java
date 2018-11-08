@@ -1,6 +1,6 @@
 package com.apkkids.myinfo_server.config;
 
-import com.apkkids.myinfo_server.bean.ResponseBean;
+import com.apkkids.myinfo_server.bean.RespBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -23,7 +23,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        ResponseBean info = new ResponseBean(500, accessDeniedException.getMessage(), null);
+        RespBean info = RespBean.error(accessDeniedException.getMessage());
         out.write(new ObjectMapper().writeValueAsString(info));
         out.flush();
         out.close();
