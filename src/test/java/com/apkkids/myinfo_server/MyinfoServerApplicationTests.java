@@ -1,9 +1,7 @@
 package com.apkkids.myinfo_server;
 
-import com.apkkids.myinfo_server.bean.Menu;
-import com.apkkids.myinfo_server.bean.MenuMeta;
-import com.apkkids.myinfo_server.bean.Role;
-import com.apkkids.myinfo_server.bean.SysUser;
+import com.apkkids.myinfo_server.bean.*;
+import com.apkkids.myinfo_server.mapper.EmployeeMapper;
 import com.apkkids.myinfo_server.mapper.MenuMapper;
 import com.apkkids.myinfo_server.mapper.SysUserMapper;
 import org.junit.Test;
@@ -22,6 +20,8 @@ public class MyinfoServerApplicationTests {
     SysUserMapper mapper;
     @Autowired
     MenuMapper menuMapper;
+    @Autowired
+    EmployeeMapper employeeMapper;
 
     @Test
     public void contextLoads() {
@@ -30,7 +30,7 @@ public class MyinfoServerApplicationTests {
     @Test
     public void testSysuserMapper() {
         List<SysUser> list = mapper.getAllSysUser(null);
-        for (SysUser user:list             ) {
+        for (SysUser user : list) {
             System.out.println(user.getName());
         }
 
@@ -47,30 +47,65 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testMenuMapper() {
-        //测试getRolesByMenuId
-//        List<Role> roles = menuMapper.getRolesByMenuId(7);
-//        for (Role r:roles             ) {
-//            System.out.println(r.getId()+", "+r.getName()+", "+r.getNameZh());
-//        }
-
         List<Menu> menuList = menuMapper.getAllMenu();
         if (menuList == null) {
             System.out.println("数据库中无此menu");
         }
         for (Menu menu : menuList) {
+            System.out.println("========Menu["+menu.getName()+"]===========");
             System.out.println(menu.getName() + "," + menu.getUrl() + ", " + menu.getComponent());
-            System.out.println("=======roles=============");
+            System.out.println("--------roles--------");
             List<Role> roles = menu.getRoles();
             if (roles != null && roles.size() > 1) {
                 for (Role r : roles) {
                     System.out.println(r.getId() + ", " + r.getName() + ", " + r.getNameZh());
                 }
             }
-            System.out.println("=======MenuMeta=============");
+            System.out.println("--------MenuMeta--------");
             MenuMeta memuMeta = menu.getMeta();
             if (memuMeta != null) {
                 System.out.println(memuMeta.isKeepAlive() + "," + memuMeta.isRequireAuth());
             }
+        }
+    }
+
+    @Test
+    public void testMenuMapperBySysUserId() {
+        //id=3 , admin
+        List<Menu> list = menuMapper.getMenusBySysUserId(3);
+        if (list == null) {
+            throw new RuntimeException("数据库中无此menu");
+        }
+        for (Menu menu : list        ) {
+            System.out.println("========Menu["+menu.getName()+"]===========");
+            System.out.println(menu.getName() + "," + menu.getUrl() + ", " + menu.getComponent());
+            System.out.println("--------roles--------");
+            List<Role> roles = menu.getRoles();
+            if (roles != null && roles.size() > 1) {
+                for (Role r : roles) {
+                    System.out.println(r.getId() + ", " + r.getName() + ", " + r.getNameZh());
+                }
+            }
+            System.out.println("--------MenuMeta--------");
+            MenuMeta memuMeta = menu.getMeta();
+            if (memuMeta != null) {
+                System.out.println(memuMeta.isKeepAlive() + "," + memuMeta.isRequireAuth());
+            }
+            System.out.println("--------Children--------");
+            List<Menu> children = menu.getChildren();
+            for (Menu m : children) {
+                System.out.println(m.getName() + "," + m.getComponent());
+            }
+        }
+    }
+
+    @Test
+    public void testEmployeeMapper(){
+        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5,null);
+        for (Employee e : list) {
+            System.out.println("========Employee["+e.getName()+"]===========");
+            System.out.println(e.getId()+","+e.getName()+","+e.getAddress()+","+e.getGender());
+            System.out.println(e.getNation().getId()+","+e.getNation().getName());
         }
     }
 }
