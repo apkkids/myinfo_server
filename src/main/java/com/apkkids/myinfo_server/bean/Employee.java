@@ -44,7 +44,7 @@ public class Employee {
 //    private Department department;
     private Nation nation;
 //    private JobLevel jobLevel;
-//    private Position position;
+    private Position position;
 //    private PoliticsStatus politicsStatus;
 //    private Salary salary;
 
@@ -88,13 +88,13 @@ public class Employee {
 //        this.jobLevel = jobLevel;
 //    }
 //
-//    public Position getPosition() {
-//        return position;
-//    }
-//
-//    public void setPosition(Position position) {
-//        this.position = position;
-//    }
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 //
 //    public PoliticsStatus getPoliticsStatus() {
 //        return politicsStatus;

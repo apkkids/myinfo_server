@@ -29,7 +29,8 @@ public interface EmployeeMapper {
      * @param endBeginDate
      * @return
      */
-    List<Employee> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size,@Param("nationId") Long nationId);
+    List<Employee> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size,@Param("nationId") Long nationId,
+                                     @Param("posId") Integer posId);
 //            ,
 //                                     @Param("keywords") String keywords, @Param("politicId") Long politicId,
 //                                     @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId,

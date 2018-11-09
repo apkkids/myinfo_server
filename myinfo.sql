@@ -464,3 +464,96 @@ INSERT INTO `employee` VALUES ('1515', '1', '男', '2018-01-01', '61012219990909
 INSERT INTO `employee` VALUES ('1516', '1', '男', '2018-01-01', '610122199909099999', '已婚', '1', '1', '1', '584991843@qq.com', '1', '1', '78', '9', '29', '劳动合同', '大专', '1', '1', '2018-01-01', '在职', '00000045', '0', null, null, '2018-01-01', '2018-01-31', null);
 INSERT INTO `employee` VALUES ('1517', '林伯渠', '男', '2018-01-01', '610122199909099999', '未婚', '1', '1', '1', '584991843@qq.com', '1', '1', '8', '9', '29', '劳动合同', '大专', '1', '1', '2018-01-31', '在职', '00000046', '0', null, null, '2018-01-31', '2018-01-31', null);
 INSERT INTO `employee` VALUES ('1518', '1', '男', '2018-01-01', '610122199909091234', '已婚', '1', '1', '1', '584991843@qq.com', '1', '1', '8', '9', '29', '劳动合同', '大专', '1', '1', '2018-01-31', '在职', '00000047', '0', null, null, '2018-01-31', '2018-01-31', null);
+
+-- ----------------------------
+-- Table structure for nation
+-- ----------------------------
+DROP TABLE IF EXISTS `nation`;
+CREATE TABLE `nation`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of nation
+-- ----------------------------
+INSERT INTO `nation` VALUES (1, '汉族');
+INSERT INTO `nation` VALUES (2, '蒙古族');
+INSERT INTO `nation` VALUES (3, '回族');
+INSERT INTO `nation` VALUES (4, '藏族');
+INSERT INTO `nation` VALUES (5, '维吾尔族');
+INSERT INTO `nation` VALUES (6, '苗族');
+INSERT INTO `nation` VALUES (7, '彝族');
+INSERT INTO `nation` VALUES (8, '壮族');
+INSERT INTO `nation` VALUES (9, '布依族');
+INSERT INTO `nation` VALUES (10, '朝鲜族');
+INSERT INTO `nation` VALUES (11, '满族');
+INSERT INTO `nation` VALUES (12, '侗族');
+INSERT INTO `nation` VALUES (13, '瑶族');
+INSERT INTO `nation` VALUES (14, '白族');
+INSERT INTO `nation` VALUES (15, '土家族');
+INSERT INTO `nation` VALUES (16, '哈尼族');
+INSERT INTO `nation` VALUES (17, '哈萨克族');
+INSERT INTO `nation` VALUES (18, '傣族');
+INSERT INTO `nation` VALUES (19, '黎族');
+INSERT INTO `nation` VALUES (20, '傈僳族');
+INSERT INTO `nation` VALUES (21, '佤族');
+INSERT INTO `nation` VALUES (22, '畲族');
+INSERT INTO `nation` VALUES (23, '高山族');
+INSERT INTO `nation` VALUES (24, '拉祜族');
+INSERT INTO `nation` VALUES (25, '水族');
+INSERT INTO `nation` VALUES (26, '东乡族');
+INSERT INTO `nation` VALUES (27, '纳西族');
+INSERT INTO `nation` VALUES (28, '景颇族');
+INSERT INTO `nation` VALUES (29, '柯尔克孜族');
+INSERT INTO `nation` VALUES (30, '土族');
+INSERT INTO `nation` VALUES (31, '达斡尔族');
+INSERT INTO `nation` VALUES (32, '仫佬族');
+INSERT INTO `nation` VALUES (33, '羌族');
+INSERT INTO `nation` VALUES (34, '布朗族');
+INSERT INTO `nation` VALUES (35, '撒拉族');
+INSERT INTO `nation` VALUES (36, '毛难族');
+INSERT INTO `nation` VALUES (37, '仡佬族');
+INSERT INTO `nation` VALUES (38, '锡伯族');
+INSERT INTO `nation` VALUES (39, '阿昌族');
+INSERT INTO `nation` VALUES (40, '普米族');
+INSERT INTO `nation` VALUES (41, '塔吉克族');
+INSERT INTO `nation` VALUES (42, '怒族');
+INSERT INTO `nation` VALUES (43, '乌孜别克族');
+INSERT INTO `nation` VALUES (44, '俄罗斯族');
+INSERT INTO `nation` VALUES (45, '鄂温克族');
+INSERT INTO `nation` VALUES (46, '崩龙族');
+INSERT INTO `nation` VALUES (47, '保安族');
+INSERT INTO `nation` VALUES (48, '裕固族');
+INSERT INTO `nation` VALUES (49, '京族');
+INSERT INTO `nation` VALUES (50, '塔塔尔族');
+INSERT INTO `nation` VALUES (51, '独龙族');
+INSERT INTO `nation` VALUES (52, '鄂伦春族');
+INSERT INTO `nation` VALUES (53, '赫哲族');
+INSERT INTO `nation` VALUES (54, '门巴族');
+INSERT INTO `nation` VALUES (55, '珞巴族');
+INSERT INTO `nation` VALUES (56, '基诺族');
+
+-- ----------------------------
+-- Table structure for position
+-- ----------------------------
+DROP TABLE IF EXISTS `position`;
+CREATE TABLE `position`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '职位',
+  `createDate` timestamp(0) DEFAULT CURRENT_TIMESTAMP,
+  `enabled` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `name`(`name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of position
+-- ----------------------------
+INSERT INTO `position` VALUES (29, '技术总监', '2018-01-11 21:13:42', 1);
+INSERT INTO `position` VALUES (30, '运营总监', '2018-01-11 21:13:48', 1);
+INSERT INTO `position` VALUES (31, '市场总监', '2018-01-11 21:13:56', 1);
+INSERT INTO `position` VALUES (32, '总经理', '2018-01-11 21:35:07', 1);
+INSERT INTO `position` VALUES (33, '研发工程师', '2018-01-14 16:07:11', 1);
+INSERT INTO `position` VALUES (34, '运维工程师', '2018-01-14 16:11:41', 1);

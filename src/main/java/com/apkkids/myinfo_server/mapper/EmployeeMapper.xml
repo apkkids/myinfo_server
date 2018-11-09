@@ -36,14 +36,22 @@
             <id column="nid" property="id"/>
             <result column="nname" property="name"/>
         </association>
+        <association property="position" javaType="com.apkkids.myinfo_server.bean.Position">
+            <id column="pid" property="id"/>
+            <result column="pname" property="name"/>
+            <result column="pcreateDate" property="createDate" jdbcType="TIMESTAMP"/>
+        </association>
     </resultMap>
 
     <select id="getEmployeeByPage" resultMap="BaseResultMap">
-        select e.*,  n.id as nid,
-        n.name as nname from employee e ,nation n
-        where        e.nationId = n.id
+        select e.*,  n.id as nid, n.name as nname , p.id as pid, p.name as pname, p.createDate as pcreateDate
+        from employee e ,nation n, position p
+        where        e.nationId = n.id AND e.posId = p.id
         <if test="nationId!=null and nationId!=''">
             AND e.nationId=#{nationId}
+        </if>
+        <if test="posId!=null and posId !=''">
+            AND e.posId = p.id
         </if>
         <if test="start!=null and size!=null">
             order by e.id limit #{start},#{size}
