@@ -3,6 +3,7 @@ package com.apkkids.myinfo_server;
 import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
 import com.apkkids.myinfo_server.mapper.MenuMapper;
+import com.apkkids.myinfo_server.mapper.SalaryMapper;
 import com.apkkids.myinfo_server.mapper.SysUserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -111,5 +112,27 @@ public class MyinfoServerApplicationTests {
             System.out.println(e.getJobLevel());
             System.out.println(e.getPoliticsStatus());
         }
+    }
+
+    @Autowired
+    SalaryMapper salaryMapper;
+    @Test
+    public void testSalaryMapper(){
+        List<Salary> list = salaryMapper.getAllSalary();
+        for (Salary s : list) {
+            System.out.println(s);
+        }
+
+//        Salary salary = new Salary();
+//        salary.setBasicSalary(1000);
+//        salary.setBonus(2100);
+//        salary.setLunchSalary(210);
+//        salary.setTrafficSalary(213);
+//        salary.setPensionBase(3000);
+//        salary.setPensionPer(0.8f);
+//        salary.setName("test salary");
+//        salaryMapper.addSalary(salary);
+
+
     }
 }

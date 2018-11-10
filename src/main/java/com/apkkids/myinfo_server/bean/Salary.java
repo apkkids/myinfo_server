@@ -21,6 +21,26 @@ public class Salary {
     private Float accumulationFundPer;
     private String name;
 
+    @Override
+    public String toString() {
+        return "Salary{" +
+                "id=" + id +
+                ", bonus=" + bonus +
+                ", lunchSalary=" + lunchSalary +
+                ", trafficSalary=" + trafficSalary +
+                ", basicSalary=" + basicSalary +
+                ", allSalary=" + allSalary +
+                ", pensionBase=" + pensionBase +
+                ", pensionPer=" + pensionPer +
+                ", createDate=" + createDate +
+                ", medicalBase=" + medicalBase +
+                ", medicalPer=" + medicalPer +
+                ", accumulationFundBase=" + accumulationFundBase +
+                ", accumulationFundPer=" + accumulationFundPer +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
