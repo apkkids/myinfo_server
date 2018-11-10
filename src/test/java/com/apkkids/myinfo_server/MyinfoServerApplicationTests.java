@@ -101,12 +101,15 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testEmployeeMapper(){
-        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5,null,null);
+        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5,null,null,null,null,null);
         for (Employee e : list) {
             System.out.println("========Employee["+e.getName()+"]===========");
             System.out.println(e.getId()+","+e.getName()+","+e.getAddress()+","+e.getGender());
-            System.out.println(e.getNation().getId()+","+e.getNation().getName());
-            System.out.println(e.getPosition().getId()+","+e.getPosition().getName()+","+e.getPosition().getCreateDate());
+            System.out.println(e.getNation());
+            System.out.println(e.getPosition());
+            System.out.println(e.getDepartment());
+            System.out.println(e.getJobLevel());
+            System.out.println(e.getPoliticsStatus());
         }
     }
 }

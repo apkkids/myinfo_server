@@ -1,15 +1,15 @@
 package com.apkkids.myinfo_server.bean;
 
 /**
- * 对应数据库字典表nation，用于Employee
+ * Created by wxb on 2018/11/10 0010.
  */
-public class Nation {
-    private  Integer id;
+public class PoliticsStatus {
+    private Integer id;
     private String name;
 
     @Override
     public String toString() {
-        return "Nation{" +
+        return "PoliticsStatus{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -3,6 +3,7 @@ package com.apkkids.myinfo_server.mapper;
 import com.apkkids.myinfo_server.bean.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -29,8 +30,9 @@ public interface EmployeeMapper {
      * @param endBeginDate
      * @return
      */
-    List<Employee> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size,@Param("nationId") Long nationId,
-                                     @Param("posId") Integer posId);
+    List<Employee> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size, @Param("nationId") Long nationId,
+                                     @Param("posId") Integer posId, @Param("departmentId") Integer  departmentId, @Param("jobLevelId") Integer jobLevelId,
+                                     @Param("politicId") Integer politicId);
 //            ,
 //                                     @Param("keywords") String keywords, @Param("politicId") Long politicId,
 //                                     @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId,

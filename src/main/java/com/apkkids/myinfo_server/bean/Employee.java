@@ -41,37 +41,37 @@ public class Employee {
     private Date beginContract;
     private Date endContract;
     private Integer workAge;
-//    private Department department;
+    private Department department;
     private Nation nation;
-//    private JobLevel jobLevel;
+    private JobLevel jobLevel;
     private Position position;
-//    private PoliticsStatus politicsStatus;
-//    private Salary salary;
+    private PoliticsStatus politicsStatus;
+    private Salary salary;
 
-//    public Salary getSalary() {
-//        return salary;
-//    }
-//
-//    public void setSalary(Salary salary) {
-//        this.salary = salary;
-//    }
-//
-//    public String getPosName() {
-//        return posName;
-//    }
-//
-//    public void setPosName(String posName) {
-//        this.posName = posName;
-//    }
-//
-//    public Department getDepartment() {
-//        return department;
-//    }
-//
-//    public void setDepartment(Department department) {
-//        this.department = department;
-//    }
-//
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Salary salary) {
+        this.salary = salary;
+    }
+
+    public String getPosName() {
+        return posName;
+    }
+
+    public void setPosName(String posName) {
+        this.posName = posName;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public Nation getNation() {
         return nation;
     }
@@ -79,15 +79,15 @@ public class Employee {
     public void setNation(Nation nation) {
         this.nation = nation;
     }
-//
-//    public JobLevel getJobLevel() {
-//        return jobLevel;
-//    }
-//
-//    public void setJobLevel(JobLevel jobLevel) {
-//        this.jobLevel = jobLevel;
-//    }
-//
+
+    public JobLevel getJobLevel() {
+        return jobLevel;
+    }
+
+    public void setJobLevel(JobLevel jobLevel) {
+        this.jobLevel = jobLevel;
+    }
+
     public Position getPosition() {
         return position;
     }
@@ -95,14 +95,14 @@ public class Employee {
     public void setPosition(Position position) {
         this.position = position;
     }
-//
-//    public PoliticsStatus getPoliticsStatus() {
-//        return politicsStatus;
-//    }
-//
-//    public void setPoliticsStatus(PoliticsStatus politicsStatus) {
-//        this.politicsStatus = politicsStatus;
-//    }
+
+    public PoliticsStatus getPoliticsStatus() {
+        return politicsStatus;
+    }
+
+    public void setPoliticsStatus(PoliticsStatus politicsStatus) {
+        this.politicsStatus = politicsStatus;
+    }
 
     public Long getId() {
         return id;

@@ -3,26 +3,29 @@ package com.apkkids.myinfo_server.bean;
 import java.sql.Timestamp;
 
 /**
- * 对应字典表position
+ * Created by wxb on 2018/11/9 0009.
+ * 数据库字典表joblevel
  */
-public class Position {
-    private  Integer id;
+public class JobLevel {
+    private Integer id;
     private String name;
+    private String titleLevel;
     private Timestamp createDate;
     private boolean enabled;
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return "Position{" +
+        return "JobLevel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", titleLevel='" + titleLevel + '\'' +
                 ", createDate=" + createDate +
                 ", enabled=" + enabled +
                 '}';
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public void setId(Integer id) {
@@ -35,6 +38,14 @@ public class Position {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTitleLevel() {
+        return titleLevel;
+    }
+
+    public void setTitleLevel(String titleLevel) {
+        this.titleLevel = titleLevel;
     }
 
     public Timestamp getCreateDate() {
