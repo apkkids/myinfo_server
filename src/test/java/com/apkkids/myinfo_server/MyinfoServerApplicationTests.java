@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MyinfoServerApplicationTests {
@@ -123,16 +125,32 @@ public class MyinfoServerApplicationTests {
             System.out.println(s);
         }
 
-//        Salary salary = new Salary();
-//        salary.setBasicSalary(1000);
-//        salary.setBonus(2100);
-//        salary.setLunchSalary(210);
-//        salary.setTrafficSalary(213);
-//        salary.setPensionBase(3000);
-//        salary.setPensionPer(0.8f);
-//        salary.setName("test salary");
-//        salaryMapper.addSalary(salary);
+        Salary salary = salaryMapper.getSalaryById(9);
+        System.out.println("getSalaryById:"+salary);
 
+
+        salary = new Salary();
+        salary.setBasicSalary(1000);
+        salary.setBonus(2100);
+        salary.setLunchSalary(210);
+        salary.setTrafficSalary(213);
+        salary.setPensionBase(3000);
+        salary.setPensionPer(0.8f);
+        salary.setName("test salary");
+        int result = salaryMapper.addSalary(salary);
+        assertEquals(result,1);
+
+        salary.setId(16);
+        salary.setName("test update");
+        salary.setBonus(1);
+        result = salaryMapper.updateSalary(salary);
+//        assertEquals(result ,1);
+
+        String[] ids = new String[3];
+        ids[0] = "14";
+        ids[1] = "15";
+        ids[2] = "16";
+        salaryMapper.deleteSalary(ids);
 
     }
 }

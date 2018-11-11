@@ -15,5 +15,16 @@ import java.util.List;
 public interface SalaryMapper {
     List<Salary> getAllSalary();
 
+    Salary getSalaryById(@Param("id") Integer id);
+
     int addSalary(@Param("salary") Salary salary);
+
+    int updateSalary(@Param("salary") Salary salary);
+
+    /**
+     * 删除一系列salary
+     * @param ids 要删除的salary的id数组
+     * @return
+     */
+    int deleteSalary(@Param("ids") String[] ids);
 }
