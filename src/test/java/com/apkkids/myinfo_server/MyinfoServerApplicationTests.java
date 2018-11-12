@@ -55,7 +55,7 @@ public class MyinfoServerApplicationTests {
             System.out.println("数据库中无此menu");
         }
         for (Menu menu : menuList) {
-            System.out.println("========Menu["+menu.getName()+"]===========");
+            System.out.println("========Menu[" + menu.getName() + "]===========");
             System.out.println(menu.getName() + "," + menu.getUrl() + ", " + menu.getComponent());
             System.out.println("--------roles--------");
             List<Role> roles = menu.getRoles();
@@ -79,8 +79,8 @@ public class MyinfoServerApplicationTests {
         if (list == null) {
             throw new RuntimeException("数据库中无此menu");
         }
-        for (Menu menu : list        ) {
-            System.out.println("========Menu["+menu.getName()+"]===========");
+        for (Menu menu : list) {
+            System.out.println("========Menu[" + menu.getName() + "]===========");
             System.out.println(menu.getName() + "," + menu.getUrl() + ", " + menu.getComponent());
             System.out.println("--------roles--------");
             List<Role> roles = menu.getRoles();
@@ -103,11 +103,11 @@ public class MyinfoServerApplicationTests {
     }
 
     @Test
-    public void testEmployeeMapper(){
-        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5,null,null,null,null,null);
+    public void testEmployeeMapper() {
+        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5, null, null, null, null, null);
         for (Employee e : list) {
-            System.out.println("========Employee["+e.getName()+"]===========");
-            System.out.println(e.getId()+","+e.getName()+","+e.getAddress()+","+e.getGender());
+            System.out.println("========Employee[" + e.getName() + "]===========");
+            System.out.println(e.getId() + "," + e.getName() + "," + e.getAddress() + "," + e.getGender());
             System.out.println(e.getNation());
             System.out.println(e.getPosition());
             System.out.println(e.getDepartment());
@@ -118,18 +118,23 @@ public class MyinfoServerApplicationTests {
 
     @Autowired
     SalaryMapper salaryMapper;
+
     @Test
-    public void testSalaryMapper(){
+    public void testSalaryMapper() {
+        //得到所有的Salary记录
         List<Salary> list = salaryMapper.getAllSalary();
         for (Salary s : list) {
             System.out.println(s);
         }
 
-        Salary salary = salaryMapper.getSalaryById(9);
-        System.out.println("getSalaryById:"+salary);
+        //得到第一个Salary
+        if (!list.isEmpty()) {
+            Salary salary = salaryMapper.getSalaryById(list.get(0).getId());
+            System.out.println("getSalaryById:" + salary);
+        }
 
-
-        salary = new Salary();
+        //add a salary
+        Salary salary = new Salary();
         salary.setBasicSalary(1000);
         salary.setBonus(2100);
         salary.setLunchSalary(210);
@@ -140,17 +145,24 @@ public class MyinfoServerApplicationTests {
         int result = salaryMapper.addSalary(salary);
         assertEquals(result,1);
 
-        salary.setId(16);
+        // update the newest salary
+        list = salaryMapper.getAllSalary();
+        salary = list.get(list.size()-1);
+        int id = salary.getId();
         salary.setName("test update");
         salary.setBonus(1);
+//        salary.setId(Integer.MAX_VALUE - 10);
         result = salaryMapper.updateSalary(salary);
-//        assertEquals(result ,1);
+        assertEquals(result ,1);
+        salary = salaryMapper.getSalaryById(id);
+        assertEquals(salary.getName(),"test update");
 
-        String[] ids = new String[3];
-        ids[0] = "14";
-        ids[1] = "15";
-        ids[2] = "16";
-        salaryMapper.deleteSalary(ids);
+        //delete the added salary
+        String[] ids = new String[1];
+        String stringid = String.valueOf(salary.getId());
+        ids[0] = stringid;
+        result =  salaryMapper.deleteSalary(ids);
+        assertEquals(result,1);
 
     }
 }
