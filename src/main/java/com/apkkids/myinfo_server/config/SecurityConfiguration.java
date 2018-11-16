@@ -117,10 +117,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 })
+                .permitAll()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll()
-                .and()
-                .csrf().disable()
+                .and().csrf().disable()
                 .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
     }
 }

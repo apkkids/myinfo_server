@@ -6,6 +6,7 @@ import com.apkkids.myinfo_server.mapper.SalaryMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class SalaryController {
      * @return salary列表
      */
     @RequestMapping(value = "/salary", method = RequestMethod.GET)
-    List<Salary> getAllSalary() {
+    public List<Salary> getAllSalary() {
         return mapper.getAllSalary();
     }
 
@@ -37,7 +38,7 @@ public class SalaryController {
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.POST)
-    RespBean addSalary(Salary salary) {
+    public RespBean addSalary(Salary salary) {
         int result = mapper.addSalary(salary);
         if (result == 1) {
             return RespBean.ok("添加Salary成功");
@@ -51,7 +52,7 @@ public class SalaryController {
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.PUT)
-    RespBean updateSalary(Salary salary) {
+   public RespBean updateSalary(Salary salary) {
         int result = mapper.updateSalary(salary);
         if (result == 1) {
             return RespBean.ok("修改Salary成功");
@@ -59,4 +60,12 @@ public class SalaryController {
         return RespBean.error("修改Salary失败");
     }
 
+    @RequestMapping(value = "/salary/{ids}", method = RequestMethod.DELETE)
+    public RespBean deleteSalary(@PathVariable String ids) {
+        String[] split = ids.split(",");
+        if (mapper.deleteSalary(split) > 0) {
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
+    }
 }
