@@ -114,6 +114,31 @@ public class MyinfoServerApplicationTests {
             System.out.println(e.getJobLevel());
             System.out.println(e.getPoliticsStatus());
         }
+        System.out.println("--------Nation--------");
+        List<Nation> nationList = employeeMapper.getAllNations();
+        for (Nation nation : nationList) {
+            System.out.println(nation);
+        }
+        System.out.println("--------Position--------");
+        List<Position> positionList = employeeMapper.getAllPosition();
+        for (Position position : positionList) {
+            System.out.println(position);
+        }
+        System.out.println("--------JobLevel--------");
+        List<JobLevel> jobLevelList = employeeMapper.getAllJobLevel();
+        for (JobLevel jobLevel : jobLevelList) {
+            System.out.println(jobLevel);
+        }
+        System.out.println("--------PoliticalStatus--------");
+        List<PoliticsStatus> politicsStatusList = employeeMapper.getAllPoliticsStatus();
+        for (PoliticsStatus politicsStatus : politicsStatusList) {
+            System.out.println(politicsStatus);
+        }
+        System.out.println("--------Department--------");
+        List<Department> departmentList = employeeMapper.getAllDepartment();
+        for (Department department : departmentList) {
+            System.out.println(department);
+        }
     }
 
     @Autowired
@@ -143,26 +168,26 @@ public class MyinfoServerApplicationTests {
         salary.setPensionPer(0.8f);
         salary.setName("test salary");
         int result = salaryMapper.addSalary(salary);
-        assertEquals(result,1);
+        assertEquals(result, 1);
 
         // update the newest salary
         list = salaryMapper.getAllSalary();
-        salary = list.get(list.size()-1);
+        salary = list.get(list.size() - 1);
         int id = salary.getId();
         salary.setName("test update");
         salary.setBonus(1);
 //        salary.setId(Integer.MAX_VALUE - 10);
         result = salaryMapper.updateSalary(salary);
-        assertEquals(result ,1);
+        assertEquals(result, 1);
         salary = salaryMapper.getSalaryById(id);
-        assertEquals(salary.getName(),"test update");
+        assertEquals(salary.getName(), "test update");
 
         //delete the added salary
         String[] ids = new String[1];
         String stringid = String.valueOf(salary.getId());
         ids[0] = stringid;
-        result =  salaryMapper.deleteSalary(ids);
-        assertEquals(result,1);
+        result = salaryMapper.deleteSalary(ids);
+        assertEquals(result, 1);
 
     }
 }

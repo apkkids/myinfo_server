@@ -1,6 +1,6 @@
 package com.apkkids.myinfo_server.mapper;
 
-import com.apkkids.myinfo_server.bean.Employee;
+import com.apkkids.myinfo_server.bean.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
@@ -38,5 +38,16 @@ public interface EmployeeMapper {
 //                                     @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId,
 //                                     @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate,
 //                                     @Param("endBeginDate") Date endBeginDate);
+
+    /**
+     * 返回所有Nation字典表内容
+     * @return
+     */
+    List<Nation> getAllNations();
+
+    List<Position> getAllPosition();
+    List<JobLevel> getAllJobLevel();
+    List<PoliticsStatus> getAllPoliticsStatus();
+    List<Department> getAllDepartment();
 
 }

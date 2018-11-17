@@ -25,6 +25,7 @@ public class SalaryController {
 
     /**
      * 获取数据库中所有的Salary
+     *
      * @return salary列表
      */
     @RequestMapping(value = "/salary", method = RequestMethod.GET)
@@ -34,13 +35,13 @@ public class SalaryController {
 
     /**
      * 加入一个Salary到数据库
+     *
      * @param salary
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.POST)
     public RespBean addSalary(Salary salary) {
-        int result = mapper.addSalary(salary);
-        if (result == 1) {
+        if (mapper.addSalary(salary) == 1) {
             return RespBean.ok("添加Salary成功");
         }
         return RespBean.error("添加Salary失败");
@@ -48,13 +49,13 @@ public class SalaryController {
 
     /**
      * 修改数据库中的一个Salary，以id作为where条件
+     *
      * @param salary
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.PUT)
-   public RespBean updateSalary(Salary salary) {
-        int result = mapper.updateSalary(salary);
-        if (result == 1) {
+    public RespBean updateSalary(Salary salary) {
+        if (mapper.updateSalary(salary) == 1) {
             return RespBean.ok("修改Salary成功");
         }
         return RespBean.error("修改Salary失败");

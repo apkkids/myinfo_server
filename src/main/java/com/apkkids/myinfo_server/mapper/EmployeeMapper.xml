@@ -96,4 +96,21 @@
             order by e.id limit #{start},#{size}
         </if>
     </select>
+
+    <!--字典表-->
+    <select id="getAllNations" resultType="com.apkkids.myinfo_server.bean.Nation">
+        SELECT * FROM nation
+    </select>
+    <select id="getAllPosition" resultType="com.apkkids.myinfo_server.bean.Position">
+        SELECT  * FROM position
+    </select>
+    <select id="getAllPoliticsStatus" resultType="com.apkkids.myinfo_server.bean.PoliticsStatus">
+        SELECT * from politicsstatus
+    </select>
+    <select id="getAllJobLevel" resultType="com.apkkids.myinfo_server.bean.JobLevel">
+        SELECT * from joblevel
+    </select>
+    <select id="getAllDepartment" resultType="com.apkkids.myinfo_server.bean.Department">
+        SELECT * from department
+    </select>
 </mapper>
