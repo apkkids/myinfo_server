@@ -104,7 +104,8 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testEmployeeMapper() {
-        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5, null, null, null, null, null);
+        List<Employee> list = employeeMapper.getEmployeeByPage(0, 5, null, null, null, null, null,
+                null,null,null,null);
         for (Employee e : list) {
             System.out.println("========Employee[" + e.getName() + "]===========");
             System.out.println(e.getId() + "," + e.getName() + "," + e.getAddress() + "," + e.getGender());

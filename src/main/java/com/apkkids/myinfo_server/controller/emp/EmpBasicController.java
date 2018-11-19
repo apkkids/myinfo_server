@@ -2,12 +2,17 @@ package com.apkkids.myinfo_server.controller.emp;
 
 import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +26,7 @@ import java.util.Map;
 public class EmpBasicController {
     @Autowired
     EmployeeMapper mapper;
+    SimpleDateFormat birthdayFormat = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * 返回与Employee相关的基础数据字典表，例如国家、民族等
      * @return
@@ -39,6 +45,36 @@ public class EmpBasicController {
         map.put("joblevels", jobLevelList);
         map.put("politics", politicsStatusList);
         map.put("deps", departmentList);
+        return map;
+    }
+
+    @RequestMapping(value="/emp" , method = RequestMethod.GET)
+    public Map<String, Object> getEmployeeByPage(
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "") String keywords,
+            Long politicId, Long nationId, Long posId,
+            Long jobLevelId, String engageForm,
+            Long departmentId, String beginDateScope) {
+        Map<String, Object> map = new HashMap<>();
+
+        int start = (page - 1) * size;
+        Date startBeginDate = null;
+        Date endBeginDate = null;
+        if (beginDateScope != null && beginDateScope.contains(",")) {
+            try {
+                String[] split = beginDateScope.split(",");
+                startBeginDate = birthdayFormat.parse(split[0]);
+                endBeginDate = birthdayFormat.parse(split[1]);
+            } catch (ParseException e) {
+            }
+        }
+
+        List<Employee> employeeByPage = mapper.getEmployeeByPage(start, size, keywords, politicId, nationId, posId, jobLevelId, engageForm, departmentId, startBeginDate, endBeginDate);
+//        Long count = empService.getCountByKeywords(keywords, politicId, nationId,
+//                posId,jobLevelId, engageForm, departmentId, beginDateScope);
+        map.put("emps", employeeByPage);
+        map.put("count", 10);
         return map;
     }
 }

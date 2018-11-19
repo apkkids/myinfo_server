@@ -77,6 +77,10 @@
         d.id as did, d.name as dname, j.id as jid, j.name as jname, j.titleLevel as jtitleLevel, ps.id as psid, ps.name as psname
         from employee e ,nation n, position p, department d, joblevel j, politicsstatus ps
         where        e.nationId = n.id AND e.posId = p.id AND e.departmentId = d.id AND e.jobLevelId = j.id AND e.politicId = ps.id
+        and e.`name`        like concat('%',#{keywords},'%')
+        <if test="engageForm!=null and engageForm!=''">
+            AND e.engageForm=#{engageForm}
+        </if>
         <if test="nationId!=null and nationId!=''">
             AND e.nationId=#{nationId}
         </if>
@@ -91,6 +95,9 @@
         </if>
         <if test="politicId!=null and politicId!=''">
             AND e.politicId =#{politicId}
+        </if>
+        <if test="startBeginDate!=null and endBeginDate!=null">
+            AND e.beginDate BETWEEN #{startBeginDate} AND #{endBeginDate}
         </if>
         <if test="start!=null and size!=null">
             order by e.id limit #{start},#{size}
