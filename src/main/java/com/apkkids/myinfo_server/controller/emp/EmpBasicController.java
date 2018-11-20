@@ -5,10 +5,7 @@ import com.apkkids.myinfo_server.mapper.EmployeeMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,12 +24,14 @@ public class EmpBasicController {
     @Autowired
     EmployeeMapper mapper;
     SimpleDateFormat birthdayFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     /**
      * 返回与Employee相关的基础数据字典表，例如国家、民族等
+     *
      * @return
      */
-    @RequestMapping(value = "/basicdata" , method = RequestMethod.GET)
-    public Map<String,Object> getAllNations(){
+    @RequestMapping(value = "/basicdata", method = RequestMethod.GET)
+    public Map<String, Object> getAllNations() {
         Map<String, Object> map = new HashMap<>();
         List<Nation> nationList = mapper.getAllNations();
         List<Position> positionList = mapper.getAllPosition();
@@ -48,7 +47,22 @@ public class EmpBasicController {
         return map;
     }
 
-    @RequestMapping(value="/emp" , method = RequestMethod.GET)
+    /**
+     * 响应员工复杂查询，将员工列表装入emp，将员工数量装入count，返回一个Map
+     *
+     * @param page
+     * @param size
+     * @param keywords
+     * @param politicId
+     * @param nationId
+     * @param posId
+     * @param jobLevelId
+     * @param engageForm
+     * @param departmentId
+     * @param beginDateScope
+     * @return
+     */
+    @RequestMapping(value = "/emp", method = RequestMethod.GET)
     public Map<String, Object> getEmployeeByPage(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
@@ -71,10 +85,20 @@ public class EmpBasicController {
         }
 
         List<Employee> employeeByPage = mapper.getEmployeeByPage(start, size, keywords, politicId, nationId, posId, jobLevelId, engageForm, departmentId, startBeginDate, endBeginDate);
-//        Long count = empService.getCountByKeywords(keywords, politicId, nationId,
-//                posId,jobLevelId, engageForm, departmentId, beginDateScope);
+        Long count = mapper.getCountByKeywords(keywords, politicId, nationId, posId, jobLevelId, engageForm, departmentId, startBeginDate, endBeginDate);
         map.put("emps", employeeByPage);
-        map.put("count", 10);
+        map.put("count", count);
         return map;
+    }
+
+    /**
+     * 删除员工
+     * @param ids 一组id，使用逗号分开
+     * @return
+     */
+    @RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
+    public Long deleteEmp(@PathVariable String ids){
+        String[] split = ids.split(",");
+        return mapper.deleteEmpById(split);
     }
 }

@@ -55,29 +55,31 @@
             <result column="psname" property="name"/>
         </association>
         <association property="salary" javaType="com.apkkids.myinfo_server.bean.Salary">
-            <id column="sid" jdbcType="INTEGER" property="id" />
-            <result column="bonus" jdbcType="INTEGER" property="bonus" />
-            <result column="lunchSalary" jdbcType="INTEGER" property="lunchSalary" />
-            <result column="trafficSalary" jdbcType="INTEGER" property="trafficSalary" />
-            <result column="basicSalary" jdbcType="INTEGER" property="basicSalary" />
-            <result column="allSalary" jdbcType="INTEGER" property="allSalary" />
-            <result column="pensionBase" jdbcType="INTEGER" property="pensionBase" />
-            <result column="pensionPer" jdbcType="REAL" property="pensionPer" />
-            <result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
-            <result column="medicalBase" jdbcType="INTEGER" property="medicalBase" />
-            <result column="medicalPer" jdbcType="REAL" property="medicalPer" />
-            <result column="accumulationFundBase" jdbcType="INTEGER" property="accumulationFundBase" />
-            <result column="accumulationFundPer" jdbcType="REAL" property="accumulationFundPer" />
-            <result column="sname" jdbcType="VARCHAR" property="name" />
+            <id column="sid" jdbcType="INTEGER" property="id"/>
+            <result column="bonus" jdbcType="INTEGER" property="bonus"/>
+            <result column="lunchSalary" jdbcType="INTEGER" property="lunchSalary"/>
+            <result column="trafficSalary" jdbcType="INTEGER" property="trafficSalary"/>
+            <result column="basicSalary" jdbcType="INTEGER" property="basicSalary"/>
+            <result column="allSalary" jdbcType="INTEGER" property="allSalary"/>
+            <result column="pensionBase" jdbcType="INTEGER" property="pensionBase"/>
+            <result column="pensionPer" jdbcType="REAL" property="pensionPer"/>
+            <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
+            <result column="medicalBase" jdbcType="INTEGER" property="medicalBase"/>
+            <result column="medicalPer" jdbcType="REAL" property="medicalPer"/>
+            <result column="accumulationFundBase" jdbcType="INTEGER" property="accumulationFundBase"/>
+            <result column="accumulationFundPer" jdbcType="REAL" property="accumulationFundPer"/>
+            <result column="sname" jdbcType="VARCHAR" property="name"/>
         </association>
     </resultMap>
 
     <select id="getEmployeeByPage" resultMap="BaseResultMap">
-        select e.*,  n.id as nid, n.name as nname , p.id as pid, p.name as pname, p.createDate as pcreateDate,
-        d.id as did, d.name as dname, j.id as jid, j.name as jname, j.titleLevel as jtitleLevel, ps.id as psid, ps.name as psname
+        select e.*, n.id as nid, n.name as nname , p.id as pid, p.name as pname, p.createDate as pcreateDate,
+        d.id as did, d.name as dname, j.id as jid, j.name as jname, j.titleLevel as jtitleLevel, ps.id as psid, ps.name
+        as psname
         from employee e ,nation n, position p, department d, joblevel j, politicsstatus ps
-        where        e.nationId = n.id AND e.posId = p.id AND e.departmentId = d.id AND e.jobLevelId = j.id AND e.politicId = ps.id
-        and e.`name`        like concat('%',#{keywords},'%')
+        where e.nationId = n.id AND e.posId = p.id AND e.departmentId = d.id AND e.jobLevelId = j.id AND e.politicId =
+        ps.id
+        and e.`name` like concat('%',#{keywords},'%')
         <if test="engageForm!=null and engageForm!=''">
             AND e.engageForm=#{engageForm}
         </if>
@@ -104,6 +106,31 @@
         </if>
     </select>
 
+    <select id="getCountByKeywords" resultType="Long">
+        select count(*) from employee e where e.`name` like concat('%',#{keywords},'%')
+        <if test="engageForm!=null and engageForm!=''">
+            AND e.engageForm=#{engageForm}
+        </if>
+        <if test="nationId!=null and nationId!=''">
+            AND e.nationId=#{nationId}
+        </if>
+        <if test="posId!=null and posId !=''">
+            AND e.posId =#{posId}
+        </if>
+        <if test="departmentId!=null and departmentId!=''">
+            AND e.departmentId =#{departmentId}
+        </if>
+        <if test="jobLevelId!=null and jobLevelId!=''">
+            AND e.jobLevelId =#{jobLevelId}
+        </if>
+        <if test="politicId!=null and politicId!=''">
+            AND e.politicId =#{politicId}
+        </if>
+        <if test="startBeginDate!=null and endBeginDate!=null">
+            AND e.beginDate BETWEEN #{startBeginDate} AND #{endBeginDate}
+        </if>
+    </select>
+
     <!--字典表-->
     <select id="getAllNations" resultType="com.apkkids.myinfo_server.bean.Nation">
         SELECT * FROM nation
@@ -120,4 +147,11 @@
     <select id="getAllDepartment" resultType="com.apkkids.myinfo_server.bean.Department">
         SELECT * from department
     </select>
+
+    <delete id="deleteEmpById">
+        DELETE FROM employee WHERE id IN
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
