@@ -69,4 +69,11 @@ public interface EmployeeMapper {
      */
     Long deleteEmpById(@Param("ids") String[] ids);
 
+    /**
+     * 增加员工
+     * @param emp
+     * @return
+     */
+    Long addEmp(@Param("emp") Employee emp);
+
 }

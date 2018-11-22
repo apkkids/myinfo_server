@@ -2,9 +2,7 @@ package com.apkkids.myinfo_server.controller.emp;
 
 import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -49,7 +47,6 @@ public class EmpBasicController {
 
     /**
      * 响应员工复杂查询，将员工列表装入emp，将员工数量装入count，返回一个Map
-     *
      * @param page
      * @param size
      * @param keywords
@@ -100,5 +97,18 @@ public class EmpBasicController {
     public Long deleteEmp(@PathVariable String ids){
         String[] split = ids.split(",");
         return mapper.deleteEmpById(split);
+    }
+
+    /**
+     * 添加一个employee
+     * @param emp
+     * @return
+     */
+    @RequestMapping(value = "/emp", method = RequestMethod.POST)
+    public RespBean addEmp(Employee emp) {
+        if (mapper.addEmp(emp) == 1){
+            return RespBean.ok("添加用户成功");
+        }
+        return RespBean.error("添加用户失败");
     }
 }

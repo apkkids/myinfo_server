@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -140,6 +141,36 @@ public class MyinfoServerApplicationTests {
         for (Department department : departmentList) {
             System.out.println(department);
         }
+    }
+
+    @Test
+    public void testEmployeeMapper_add(){
+        Employee emp = new Employee();
+        emp.setName("test");
+        emp.setGender("男");
+        emp.setBirthday(new Date());
+        emp.setPoliticId((long) 1);
+        emp.setNationId((long) 1);
+        emp.setNativePlace("北京");
+        emp.setEmail("wxb@163.com");
+        emp.setAddress("beijing");
+        emp.setPosId((long) 29);
+        emp.setJobLevelId((long) 9);
+        emp.setDepartmentId((long) 1);
+        emp.setPhone("12324325425");
+        emp.setWorkID("10001");
+        emp.setTiptopDegree("博士");
+        emp.setSchool("北京大学");
+        emp.setSpecialty("jisuanji");
+        emp.setBeginDate(new Date());
+        emp.setConversionTime(new Date());
+        emp.setBeginContract(new Date());
+        emp.setEndContract(new Date());
+        emp.setIdCard("10000121023103201");
+        emp.setEngageForm("劳务合同");
+        emp.setWedlock("已婚");
+        Long result = employeeMapper.addEmp(emp);
+        System.out.println(result);
     }
 
     @Autowired

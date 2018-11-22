@@ -154,4 +154,57 @@
             #{id}
         </foreach>
     </delete>
+
+    <insert id="addEmp" parameterType="com.apkkids.myinfo_server.bean.Employee">
+INSERT INTO employee (
+	name,
+	gender,
+	birthday,
+	politicId,
+	nationId,
+	nativePlace,
+	email,
+	address,
+	posId,
+	jobLevelId,
+	departmentId,
+	phone,
+	workID,
+	tiptopDegree,
+	school,
+	specialty,
+	beginDate,
+	conversionTime,
+	beginContract,
+	endContract,
+	idCard,
+	engageForm,
+	wedlock
+)
+VALUES
+	( #{emp.name},
+#{emp.gender},
+#{emp.birthday},
+#{emp.politicId},
+#{emp.nationId},
+#{emp.nativePlace},
+#{emp.email},
+#{emp.address},
+#{emp.posId},
+#{emp.jobLevelId},
+#{emp.departmentId},
+#{emp.phone},
+#{emp.workID},
+#{emp.tiptopDegree},
+#{emp.school},
+#{emp.specialty},
+#{emp.beginDate},
+#{emp.conversionTime},
+#{emp.beginContract},
+#{emp.endContract},
+#{emp.idCard},
+#{emp.engageForm},
+#{emp.wedlock}
+	);
+    </insert>
 </mapper>
