@@ -76,4 +76,5 @@ public interface EmployeeMapper {
      */
     Long addEmp(@Param("emp") Employee emp);
 
+    Long updateEmp(@Param("emp") Employee emp);
 }

@@ -207,4 +207,86 @@ VALUES
 #{emp.wedlock}
 	);
     </insert>
+
+    <update id="updateEmp" parameterType="com.apkkids.myinfo_server.bean.Employee">
+        UPDATE employee
+        <set>
+            <if test="emp.name != null">
+                name = #{emp.name,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.gender != null">
+                gender = #{emp.gender,jdbcType=CHAR},
+            </if>
+            <if test="emp.birthday != null">
+                birthday = #{emp.birthday,jdbcType=DATE},
+            </if>
+            <if test="emp.idCard != null">
+                idCard = #{emp.idCard,jdbcType=CHAR},
+            </if>
+            <if test="emp.wedlock != null">
+                wedlock = #{emp.wedlock,jdbcType=CHAR},
+            </if>
+            <if test="emp.nationId != null">
+                nationId = #{emp.nationId,jdbcType=INTEGER},
+            </if>
+            <if test="emp.nativePlace != null">
+                nativePlace = #{emp.nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.politicId != null">
+                politicId = #{emp.politicId,jdbcType=INTEGER},
+            </if>
+            <if test="emp.email != null">
+                email = #{emp.email,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.phone != null">
+                phone = #{emp.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.address != null">
+                address = #{emp.address,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.departmentId != null">
+                departmentId = #{emp.departmentId,jdbcType=INTEGER},
+            </if>
+            <if test="emp.jobLevelId != null">
+                jobLevelId = #{emp.jobLevelId,jdbcType=INTEGER},
+            </if>
+            <if test="emp.posId != null">
+                posId = #{emp.posId,jdbcType=INTEGER},
+            </if>
+            <if test="emp.engageForm != null">
+                engageForm = #{emp.engageForm,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.tiptopDegree != null">
+                tiptopDegree = #{emp.tiptopDegree,jdbcType=CHAR},
+            </if>
+            <if test="emp.specialty != null">
+                specialty = #{emp.specialty,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.school != null">
+                school = #{emp.school,jdbcType=VARCHAR},
+            </if>
+            <if test="emp.beginDate != null">
+                beginDate = #{emp.beginDate,jdbcType=DATE},
+            </if>
+            <if test="emp.workState != null">
+                workState = #{emp.workState,jdbcType=CHAR},
+            </if>
+            <if test="emp.contractTerm != null">
+                contractTerm = #{emp.contractTerm,jdbcType=DOUBLE},
+            </if>
+            <if test="emp.conversionTime != null">
+                conversionTime = #{emp.conversionTime,jdbcType=DATE},
+            </if>
+            <if test="emp.notWorkDate != null">
+                notWorkDate = #{emp.notWorkDate,jdbcType=DATE},
+            </if>
+            <if test="emp.beginContract != null">
+                beginContract = #{emp.beginContract,jdbcType=DATE},
+            </if>
+            <if test="emp.endContract != null">
+                endContract = #{emp.endContract,jdbcType=DATE},
+            </if>
+        </set>
+        WHERE id = #{emp.id,jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -111,4 +111,12 @@ public class EmpBasicController {
         }
         return RespBean.error("添加用户失败");
     }
+
+    @RequestMapping(value = "/emp", method = RequestMethod.PUT)
+    public RespBean updateEmp(Employee emp){
+        if (mapper.updateEmp(emp) == 1) {
+            return RespBean.ok("更新用户成功");
+        }
+        return RespBean.error("更新用户失败");
+    }
 }
