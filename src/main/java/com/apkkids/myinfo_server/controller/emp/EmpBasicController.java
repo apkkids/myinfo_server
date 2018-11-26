@@ -4,6 +4,7 @@ import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,5 +119,15 @@ public class EmpBasicController {
             return RespBean.ok("更新用户成功");
         }
         return RespBean.error("更新用户失败");
+    }
+
+    @RequestMapping(value = "/importEmp", method = RequestMethod.POST)
+    public RespBean importEmp(MultipartFile file){
+        System.out.println(file.getName());
+        System.out.println(file.getContentType());
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getSize());
+
+        return RespBean.error("上传员工信息失败");
     }
 }
