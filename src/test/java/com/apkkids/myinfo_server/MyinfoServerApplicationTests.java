@@ -1,6 +1,7 @@
 package com.apkkids.myinfo_server;
 
 import com.apkkids.myinfo_server.bean.*;
+import com.apkkids.myinfo_server.common.PoiUtils;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
 import com.apkkids.myinfo_server.mapper.MenuMapper;
 import com.apkkids.myinfo_server.mapper.SalaryMapper;
@@ -9,9 +10,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -221,5 +227,29 @@ public class MyinfoServerApplicationTests {
         result = salaryMapper.deleteSalary(ids);
         assertEquals(result, 1);
 
+    }
+
+    @Test
+    public void testPoiUtils(){
+        List<Employee> list = employeeMapper.getEmployeeByPage(0, 10, null, null, null, null, null,
+                null,null,null,null);
+        for (Employee emp : list             ) {
+            System.out.println(emp);
+        }
+        ResponseEntity<byte[]> entity = PoiUtils.exportEmp2Excel(list);
+        byte[] outBytes = entity.getBody();
+        try {
+            //得到当前目录下名为emps.xls文件的路径
+            String outputfile = new File(".").getCanonicalPath() + File.separator + "emps.xls";
+            System.out.println(outputfile);
+            FileOutputStream fos = new FileOutputStream(outputfile);
+            fos.write(outBytes, 0, outBytes.length);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

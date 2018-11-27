@@ -2,7 +2,9 @@ package com.apkkids.myinfo_server.controller.emp;
 
 import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -129,5 +131,11 @@ public class EmpBasicController {
         System.out.println(file.getSize());
 
         return RespBean.error("上传员工信息失败");
+    }
+
+    @RequestMapping(value = "/exportEmp", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> exportEmp(){
+        System.out.println("exportEmp");
+        return null;
     }
 }

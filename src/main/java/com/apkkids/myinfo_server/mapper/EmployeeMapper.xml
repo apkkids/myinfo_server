@@ -79,7 +79,9 @@
         from employee e ,nation n, position p, department d, joblevel j, politicsstatus ps
         where e.nationId = n.id AND e.posId = p.id AND e.departmentId = d.id AND e.jobLevelId = j.id AND e.politicId =
         ps.id
-        and e.`name` like concat('%',#{keywords},'%')
+        <if test="keywords!=null and keywords!=''">
+            and e.`name` like concat('%',#{keywords},'%')
+        </if>
         <if test="engageForm!=null and engageForm!=''">
             AND e.engageForm=#{engageForm}
         </if>

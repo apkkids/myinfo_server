@@ -12,6 +12,10 @@ public class Department {
     private boolean enabled;
     private boolean isParent;
 
+    public Department(){}
+    public Department(String name) {
+        this.name = name;
+    }
     @Override
     public String toString() {
         return "Department{" +

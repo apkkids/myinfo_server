@@ -6,11 +6,15 @@ import java.sql.Timestamp;
  * 对应字典表position
  */
 public class Position {
-    private  Integer id;
+    private  Long id;
     private String name;
     private Timestamp createDate;
     private boolean enabled;
 
+    public Position(){}
+    public Position(String name) {
+        this.name = name;
+    }
     @Override
     public String toString() {
         return "Position{" +
@@ -21,11 +25,11 @@ public class Position {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

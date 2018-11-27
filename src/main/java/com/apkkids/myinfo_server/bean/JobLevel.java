@@ -7,13 +7,20 @@ import java.sql.Timestamp;
  * 数据库字典表joblevel
  */
 public class JobLevel {
-    private Integer id;
+    private Long id;
     private String name;
     private String titleLevel;
     private Timestamp createDate;
     private boolean enabled;
 
-    public Integer getId() {
+    public JobLevel() {
+    }
+
+    public JobLevel(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -28,7 +35,7 @@ public class JobLevel {
                 '}';
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

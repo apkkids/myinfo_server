@@ -4,9 +4,14 @@ package com.apkkids.myinfo_server.bean;
  * 对应数据库字典表nation，用于Employee
  */
 public class Nation {
-    private  Integer id;
+    private  Long id;
     private String name;
 
+    public Nation(){}
+
+    public Nation(String name) {
+        this.name = name;
+    }
     @Override
     public String toString() {
         return "Nation{" +
@@ -15,11 +20,11 @@ public class Nation {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

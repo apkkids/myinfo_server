@@ -4,9 +4,13 @@ package com.apkkids.myinfo_server.bean;
  * Created by wxb on 2018/11/10 0010.
  */
 public class PoliticsStatus {
-    private Integer id;
+    private Long id;
     private String name;
 
+    public PoliticsStatus(){}
+    public PoliticsStatus(String name) {
+        this.name = name;
+    }
     @Override
     public String toString() {
         return "PoliticsStatus{" +
@@ -15,11 +19,11 @@ public class PoliticsStatus {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
