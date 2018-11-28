@@ -1,9 +1,12 @@
 package com.apkkids.myinfo_server.controller.emp;
 
 import com.apkkids.myinfo_server.bean.*;
+import com.apkkids.myinfo_server.common.PoiUtils;
 import com.apkkids.myinfo_server.mapper.EmployeeMapper;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -133,9 +136,26 @@ public class EmpBasicController {
         return RespBean.error("上传员工信息失败");
     }
 
+    /**
+     * 导出员工信息到excel文档，然后通过ResponseEntity返回给前端
+     * @return
+     */
     @RequestMapping(value = "/exportEmp", method = RequestMethod.GET)
     public ResponseEntity<byte[]> exportEmp(){
-        System.out.println("exportEmp");
-        return null;
+        List<Employee> allEmployees = mapper.getEmployeeByPage(null, null, null, null, null, null, null,
+                null,null,null,null);
+        ResponseEntity<byte[]> responseEntity = PoiUtils.exportEmp2Excel(allEmployees);
+        return responseEntity;
+    }
+
+    /**
+     * 用于测试HttpEntity的用法
+     * @return
+     */
+    @RequestMapping(value = "/testEntity", method = RequestMethod.GET)
+    public HttpEntity<String> handle() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("MyResponseHeader", "MyValue");
+        return new HttpEntity<String>("Hello World", responseHeaders);
     }
 }
