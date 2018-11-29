@@ -213,6 +213,16 @@ public class PoiUtils {
         return new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.CREATED);
     }
 
+    /**
+     * 导入excel文件到数据库
+     * @param file 待导入的文件
+     * @param allNations nation字典表
+     * @param allPolitics
+     * @param allDeps
+     * @param allPos
+     * @param allJobLevels
+     * @return
+     */
     public static List<Employee> importEmp2List(MultipartFile file,
                                                 List<Nation> allNations,
                                                 List<PoliticsStatus> allPolitics,

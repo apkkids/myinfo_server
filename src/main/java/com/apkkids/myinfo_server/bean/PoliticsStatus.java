@@ -11,6 +11,20 @@ public class PoliticsStatus {
     public PoliticsStatus(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        PoliticsStatus that = (PoliticsStatus)obj;
+        return name == null ? that.name == null : this.name.equals(that.name);
+    }
+
     @Override
     public String toString() {
         return "PoliticsStatus{" +

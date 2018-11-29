@@ -15,6 +15,20 @@ public class Position {
     public Position(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Position that = (Position)obj;
+        return name == null ? that.name == null : this.name.equals(that.name);
+    }
+
     @Override
     public String toString() {
         return "Position{" +

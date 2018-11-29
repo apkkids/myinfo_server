@@ -53,6 +53,7 @@ public class EmpBasicController {
 
     /**
      * 响应员工复杂查询，将员工列表装入emp，将员工数量装入count，返回一个Map
+     *
      * @param page
      * @param size
      * @param keywords
@@ -96,60 +97,73 @@ public class EmpBasicController {
 
     /**
      * 删除员工
+     *
      * @param ids 一组id，使用逗号分开
      * @return
      */
     @RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
-    public Long deleteEmp(@PathVariable String ids){
+    public Long deleteEmp(@PathVariable String ids) {
         String[] split = ids.split(",");
         return mapper.deleteEmpById(split);
     }
 
     /**
      * 添加一个employee
+     *
      * @param emp
      * @return
      */
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
     public RespBean addEmp(Employee emp) {
-        if (mapper.addEmp(emp) == 1){
+        if (mapper.addEmp(emp) == 1) {
             return RespBean.ok("添加用户成功");
         }
         return RespBean.error("添加用户失败");
     }
 
     @RequestMapping(value = "/emp", method = RequestMethod.PUT)
-    public RespBean updateEmp(Employee emp){
+    public RespBean updateEmp(Employee emp) {
         if (mapper.updateEmp(emp) == 1) {
             return RespBean.ok("更新用户成功");
         }
         return RespBean.error("更新用户失败");
     }
 
+    /**
+     * 从excel文档导入员工信息到数据库
+     * @param file
+     * @return
+     */
     @RequestMapping(value = "/importEmp", method = RequestMethod.POST)
-    public RespBean importEmp(MultipartFile file){
-        System.out.println(file.getName());
-        System.out.println(file.getContentType());
-        System.out.println(file.getOriginalFilename());
-        System.out.println(file.getSize());
+    public RespBean importEmp(MultipartFile file) {
+        List<Employee> employeeList = PoiUtils.importEmp2List(file,
+                mapper.getAllNations(), mapper.getAllPoliticsStatus(), mapper.getAllDepartment(),
+                mapper.getAllPosition(), mapper.getAllJobLevel());
+
+        Long result = mapper.addEmps(employeeList);
+        if (result == employeeList.size()) {
+            return RespBean.ok("上传员工信息成功");
+        }
 
         return RespBean.error("上传员工信息失败");
     }
 
     /**
      * 导出员工信息到excel文档，然后通过ResponseEntity返回给前端
+     *
      * @return
      */
     @RequestMapping(value = "/exportEmp", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> exportEmp(){
+    public ResponseEntity<byte[]> exportEmp() {
         List<Employee> allEmployees = mapper.getEmployeeByPage(null, null, null, null, null, null, null,
-                null,null,null,null);
+                null, null, null, null);
         ResponseEntity<byte[]> responseEntity = PoiUtils.exportEmp2Excel(allEmployees);
         return responseEntity;
     }
 
     /**
      * 用于测试HttpEntity的用法
+     *
      * @return
      */
     @RequestMapping(value = "/testEntity", method = RequestMethod.GET)

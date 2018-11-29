@@ -25,6 +25,19 @@ public class JobLevel {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        JobLevel that = (JobLevel)obj;
+        return name == null ? that.name == null : this.name.equals(that.name);
+    }
+
+    @Override
     public String toString() {
         return "JobLevel{" +
                 "id=" + id +

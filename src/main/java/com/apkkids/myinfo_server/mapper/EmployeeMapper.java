@@ -76,5 +76,12 @@ public interface EmployeeMapper {
      */
     Long addEmp(@Param("emp") Employee emp);
 
+    /**
+     * 增加多个员工
+     * @param emps
+     * @return
+     */
+    Long addEmps(@Param("emps") List<Employee> emps);
+
     Long updateEmp(@Param("emp") Employee emp);
 }
