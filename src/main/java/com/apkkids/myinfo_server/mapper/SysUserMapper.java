@@ -53,4 +53,19 @@ public interface SysUserMapper {
      */
     int sysUserReg(@Param("username") String username, @Param("password") String password);
 
+    int deleteUserById(Long id);
+
+    /**
+     * 通过关键字查询管理员（带有角色信息）
+     * @param keywords
+     * @return
+     */
+    List<SysUser> getUsersByKeywords(@Param("keywords") String keywords);
+
+    /**
+     * 更新管理员属性
+     * @param sysUser
+     * @return
+     */
+    int updateSysUser(SysUser sysUser);
 }

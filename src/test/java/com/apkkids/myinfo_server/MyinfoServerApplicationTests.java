@@ -67,6 +67,26 @@ public class MyinfoServerApplicationTests {
         if (anotheradmin != null) {
             System.out.println(anotheradmin);
         }
+
+        System.out.println("========SysUser[deleteUserById]===========");
+        mapper.deleteUserById((long)anotheradmin.getId());
+        anotheradmin = mapper.selectByUsername("anotheradmin");
+        if (anotheradmin == null) {
+            System.out.println("删除成功");
+        }
+
+        System.out.println("========SysUser[getUsersByKeywords]===========");
+        List<SysUser> users = mapper.getUsersByKeywords("李");
+        for (SysUser user : users) {
+            System.out.println(user);
+        }
+
+        System.out.println("========SysUser[updateSysUser]===========");
+        SysUser zenggong = mapper.loadUserByUsername("zenggong");
+        zenggong.setPhone("1122334");
+        mapper.updateSysUser(zenggong);
+        zenggong = mapper.loadUserByUsername("zenggong");
+        assertEquals(zenggong.getPhone(),"1122334");
     }
 
     @Test

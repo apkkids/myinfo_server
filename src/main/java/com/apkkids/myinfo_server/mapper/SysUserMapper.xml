@@ -22,6 +22,13 @@
                     column="id">
         </collection>
     </resultMap>
+    <resultMap id="eagerLoadRoles" type="com.apkkids.myinfo_server.bean.SysUser" extends="SysUserResultMap">
+        <collection property="roles" ofType="com.apkkids.myinfo_server.bean.Role">
+            <id property="id" column="rid"/>
+            <result property="name" column="rname"/>
+            <result property="nameZh" column="rnameZh"/>
+        </collection>
+    </resultMap>
 
     <!--搜索所有的SysUser-->
     <select id="getAllSysUser" resultType="com.apkkids.myinfo_server.bean.SysUser">
@@ -45,8 +52,61 @@
         select * from sysuser WHERE username=#{username};
     </select>
 
-    <insert id="sysUserReg" >
+    <insert id="sysUserReg">
         INSERT INTO sysuser (username,password)
         VALUES ( #{username}, #{password});
     </insert>
+
+    <delete id="deleteUserById">
+        DELETE FROM sysuser WHERE id=#{id};
+    </delete>
+
+    <select id="getUsersByKeywords" resultMap="lazyLoadRoles">
+        SELECT s.*, r.id AS rid, r.NAME AS rname, r.nameZh AS rnameZh FROM
+        (
+        ( sysuser s LEFT JOIN sysuser_role s_r ON ( ( s.id = s_r.sysuser_id ) ) )
+        LEFT JOIN role r ON ( ( s_r.role_id = r.id ) )
+        )
+        WHERE
+        s.id NOT IN ( SELECT s_r.sysuser_id FROM sysuser_role s_r, role r WHERE s_r.role_id = r.id AND r.nameZh =
+        '系统管理员' )
+        <if test="keywords!='all' and keywords!=''">
+            AND s.NAME LIKE concat( '%', #{keywords}, '%' )
+        </if>
+        ORDER BY s.id LIMIT 10
+    </select>
+
+    <update id="updateSysUser">
+        UPDATE sysuser
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=CHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled,jdbcType=BIT},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userface != null">
+                userface = #{userface,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>
