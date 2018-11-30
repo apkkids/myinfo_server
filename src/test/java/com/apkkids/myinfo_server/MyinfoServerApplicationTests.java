@@ -39,11 +39,12 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testSysuserMapper() {
-        List<SysUser> list = mapper.getAllSysUser(null);
+        List<SysUser> list = mapper.getAllSysUser((long) 3);
         for (SysUser user : list) {
             System.out.println(user.getName());
         }
 
+        System.out.println("========SysUser[loadUserByUsername]===========");
         SysUser bean = mapper.loadUserByUsername("admin");
         if (bean == null) {
             throw new UsernameNotFoundException("数据库中无此用户！");
@@ -52,6 +53,19 @@ public class MyinfoServerApplicationTests {
         List<Role> roles = bean.getRoles();
         for (Role r : roles) {
             System.out.println(r.getNameZh());
+        }
+
+        System.out.println("========SysUser[getRolesByUserId]===========");
+        roles = mapper.getRolesByUserId((long) 3);
+        for (Role r : roles) {
+            System.out.println(r.getNameZh());
+        }
+
+        System.out.println("========SysUser[sysUserReg]===========");
+        mapper.sysUserReg("anotheradmin", "123456");
+        SysUser anotheradmin = mapper.selectByUsername("anotheradmin");
+        if (anotheradmin != null) {
+            System.out.println(anotheradmin);
         }
     }
 

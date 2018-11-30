@@ -18,7 +18,7 @@
     </resultMap>
     <resultMap id="lazyLoadRoles" type="com.apkkids.myinfo_server.bean.SysUser" extends="SysUserResultMap">
         <collection property="roles" ofType="com.apkkids.myinfo_server.bean.Role"
-                    select="com.apkkids.myinfo_server.mapper.SysUserMapper.getRolsBySysUserId"
+                    select="com.apkkids.myinfo_server.mapper.SysUserMapper.getRolesByUserId"
                     column="id">
         </collection>
     </resultMap>
@@ -32,7 +32,7 @@
     </select>
 
     <!--根据SysUser的id选择所有的角色Role，返回Role集合-->
-    <select id="getRolsBySysUserId" resultType="com.apkkids.myinfo_server.bean.Role">
+    <select id="getRolesByUserId" resultType="com.apkkids.myinfo_server.bean.Role">
          SELECT r.* from role r ,sysuser_role sr where sr.role_id=r.id and sr.sysuser_id = #{id}
     </select>
 
@@ -44,4 +44,9 @@
     <select id="selectByUsername" resultType="com.apkkids.myinfo_server.bean.SysUser">
         select * from sysuser WHERE username=#{username};
     </select>
+
+    <insert id="sysUserReg" >
+        INSERT INTO sysuser (username,password)
+        VALUES ( #{username}, #{password});
+    </insert>
 </mapper>

@@ -17,44 +17,40 @@ import java.util.List;
 @Component
 @Mapper
 public interface SysUserMapper {
-
     /**
-     * get all sysuser
+     * 得到除当前id外的所有管理员
+     * @param currentId
      * @return
      */
     List<SysUser> getAllSysUser(@Param("currentId") Long currentId);
 
+    /**
+     * 通过用户名查找管理员（不带有角色信息）
+     * @param username
+     * @return
+     */
     SysUser selectByUsername(@Param("username") String username);
 
+    /**
+     * 通过用户名查找管理员（带有角色信息）
+     * @param username
+     * @return
+     */
     SysUser loadUserByUsername(@Param("username") String username);
 
-//    /**
-//     * 从数据库中查询用户(不包括角色)
-//     * @param username
-//     * @return
-//     */
-//    @Select("select * from sysuser where username = #{username}")
-//    SysUser selectByUsername(@Param("username") String username);
-//
-//    /**
-//     * 从数据库中查询用户（包括角色，角色是一个List<Role>，使用二次查询），参考这篇文章使用@Many和@One
-//     * https://blog.csdn.net/wfq784967698/article/details/78786001
-//     * @param username
-//     * @return
-//     */
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "roles", column = "id", many = @Many(select = "com.apkkids.myinfo_server.mapper.SysuserMapper.queryRoleBySysuserid"))
-//    }
-//    )
-//    @Select("select * from sysuser where username = #{username}")
-//    SysUser selectUserWithRolesByUsername(@Param("username") String username);
-//
-//    /**
-//     * 根据userid从角色表中选择相应的角色，在selectUserWithRolesByUsername中使用
-//     * @return
-//     */
-//    @Select("SELECT r.* FROM sysuser_role u,role r where u.role_id=r.id AND u.sysuser_id=#{id}")
-//    List<Role> queryRoleBySysuserid(@Param("id") Integer id);
+    /**
+     * 通过id查找管理员的角色
+     * @param id
+     * @return
+     */
+    List<Role> getRolesByUserId(Long id);
+
+    /**
+     * 注册一个管理员
+     * @param username 管理员名字
+     * @param password 管理员密码，此处的密码应该是在后端加密过的，直接存入数据库
+     * @return
+     */
+    int sysUserReg(@Param("username") String username, @Param("password") String password);
 
 }
