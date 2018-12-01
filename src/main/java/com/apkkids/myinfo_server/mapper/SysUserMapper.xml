@@ -109,4 +109,15 @@
         </set>
         WHERE id = #{id}
     </update>
+
+    <insert id="addRolesForSysUser">
+        INSERT INTO sysuser_role (sysuser_id,role_id) VALUE 
+        <foreach collection="rids" item="rid" separator=",">
+            (#{userId}, #{rid})
+        </foreach>
+    </insert>
+
+    <delete id="deleteRoleByUserId">
+        DELETE FROM sysuser_role WHERE sysuser_id = #{userId};
+    </delete>
 </mapper>

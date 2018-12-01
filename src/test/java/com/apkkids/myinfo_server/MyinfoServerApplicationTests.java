@@ -87,6 +87,16 @@ public class MyinfoServerApplicationTests {
         mapper.updateSysUser(zenggong);
         zenggong = mapper.loadUserByUsername("zenggong");
         assertEquals(zenggong.getPhone(),"1122334");
+
+        System.out.println("========SysUser[addRolesForSysUser,deleteRoleByUserId]===========");
+        mapper.sysUserReg("test", "test");
+        SysUser tempUser = mapper.selectByUsername("test");
+        mapper.addRolesForSysUser(tempUser.getId(), new Long[]{Long.valueOf(2), Long.valueOf(3), Long.valueOf(4)});
+        int result = mapper.deleteRoleByUserId(tempUser.getId());
+        assertEquals(result, 3);
+        result = mapper.deleteUserById(tempUser.getId());
+        assertEquals(result,1);
+
     }
 
     @Test
@@ -116,7 +126,7 @@ public class MyinfoServerApplicationTests {
     @Test
     public void testMenuMapperBySysUserId() {
         //id=3 , admin
-        List<Menu> list = menuMapper.getMenusBySysUserId(3);
+        List<Menu> list = menuMapper.getMenusBySysUserId((long) 3);
         if (list == null) {
             throw new RuntimeException("数据库中无此menu");
         }

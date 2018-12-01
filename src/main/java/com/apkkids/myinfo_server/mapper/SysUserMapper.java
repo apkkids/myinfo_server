@@ -37,7 +37,18 @@ public interface SysUserMapper {
      * @return
      */
     SysUser loadUserByUsername(@Param("username") String username);
-
+    /**
+     * 通过关键字查询管理员（带有角色信息）
+     * @param keywords
+     * @return
+     */
+    List<SysUser> getUsersByKeywords(@Param("keywords") String keywords);
+    /**
+     * 更新管理员属性
+     * @param sysUser
+     * @return
+     */
+    int updateSysUser(SysUser sysUser);
     /**
      * 通过id查找管理员的角色
      * @param id
@@ -56,16 +67,17 @@ public interface SysUserMapper {
     int deleteUserById(Long id);
 
     /**
-     * 通过关键字查询管理员（带有角色信息）
-     * @param keywords
+     * 为管理员添加角色
+     * @param userId 管理员id
+     * @param rids 角色id数组
      * @return
      */
-    List<SysUser> getUsersByKeywords(@Param("keywords") String keywords);
+    int addRolesForSysUser(@Param("userId") Long userId, @Param("rids") Long[] rids);
 
     /**
-     * 更新管理员属性
-     * @param sysUser
+     * 通过管理员id删除他的角色（在sysuser_role表中）
+     * @param userId
      * @return
      */
-    int updateSysUser(SysUser sysUser);
+    int deleteRoleByUserId(Long userId);
 }

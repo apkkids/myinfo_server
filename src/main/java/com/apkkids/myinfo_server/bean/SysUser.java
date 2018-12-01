@@ -33,7 +33,7 @@ public class SysUser implements UserDetails {
 //    SELECT u.* , r.id as rid, r.name as rname,r.nameZh AS rnameZh FROM (( sysuser u LEFT JOIN sysuser_role u_r on ((u.id=u_r.sysuser_id)))
 //    LEFT JOIN role r on ((u_r.role_id=r.id))) where u.id=3;
 
-    private Integer id;
+    private Long id;
     private String name;
     private String phone;
     private String telephone;
@@ -98,11 +98,11 @@ public class SysUser implements UserDetails {
         this.roles = roles;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

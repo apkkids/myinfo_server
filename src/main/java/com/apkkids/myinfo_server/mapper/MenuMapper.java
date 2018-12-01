@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
     List<Menu> getAllMenu();
-    List<Menu> getMenusBySysUserId(@Param("id") Integer id);
+    List<Menu> getMenusBySysUserId(@Param("id") Long id);
 
 //    /**
 //     * 组合menu、menu_role、role三个表，查询所有的menu以及它所需的角色
