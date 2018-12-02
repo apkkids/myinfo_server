@@ -39,7 +39,7 @@ public interface SysUserMapper {
     SysUser loadUserByUsername(@Param("username") String username);
     /**
      * 通过关键字查询管理员（带有角色信息）
-     * @param keywords
+     * @param keywords 前端传入的keywords，如果为空，前端会传来"all"
      * @return
      */
     List<SysUser> getUsersByKeywords(@Param("keywords") String keywords);

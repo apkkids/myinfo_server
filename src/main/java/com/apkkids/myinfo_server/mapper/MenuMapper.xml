@@ -42,7 +42,7 @@
     </select>
 
     <!--搜索一个系统用户SysUser（使用他的id）拥有的角色对应的菜单，将菜单通过children集合分2级组织-->
-    <select id="getMenusBySysUserId" parameterType="Integer" resultMap="BaseResultMap">
+    <select id="getMenusBySysUserId" parameterType="Long" resultMap="BaseResultMap">
 SELECT
 	m1.id,
 	m1.path,
