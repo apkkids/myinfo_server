@@ -61,7 +61,7 @@
         DELETE FROM sysuser WHERE id=#{id};
     </delete>
 
-    <select id="getUsersByKeywords" resultMap="lazyLoadRoles">
+    <select id="getUsersByKeywords" resultMap="eagerLoadRoles">
         SELECT s.*, r.id AS rid, r.NAME AS rname, r.nameZh AS rnameZh FROM
         (
         ( sysuser s LEFT JOIN sysuser_role s_r ON ( ( s.id = s_r.sysuser_id ) ) )

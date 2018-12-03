@@ -97,6 +97,11 @@ public class MyinfoServerApplicationTests {
         result = mapper.deleteUserById(tempUser.getId());
         assertEquals(result,1);
 
+        System.out.println("========SysUser[getUsersByKeywords]===========");
+        list = mapper.getUsersByKeywords("all");
+        for (SysUser user : list) {
+            System.out.println(user);
+        }
     }
 
     @Test
