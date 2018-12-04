@@ -21,21 +21,25 @@ import java.util.List;
 public class SysUserController {
     @Autowired
     SysUserMapper mapper;
+
     @RequestMapping("/{keywords}")
-    List<SysUser> getUsersByKeywords(@PathVariable(required = false) String keywords){
+    List<SysUser> getUsersByKeywords(@PathVariable(required = false) String keywords) {
         List<SysUser> sysUserList = mapper.getUsersByKeywords(keywords);
         return sysUserList;
     }
 
     @RequestMapping(value = "/roles", method = RequestMethod.PUT)
-    RespBean updateRoles(Long currentId,Long[] rids){
-        int result = mapper.deleteUserById(currentId);
-        if (result == 1) {
-            result = mapper.addRolesForSysUser(currentId, rids);
-            if (result == rids.length) {
-                return RespBean.ok("success");
-            }
+    RespBean updateRoles(Long currentId, Long[] rids) {
+        mapper.deleteRoleByUserId(currentId);
+        int result = mapper.addRolesForSysUser(currentId, rids);
+        if (result == rids.length) {
+            return RespBean.ok("success");
         }
         return RespBean.error("更新用户角色失败");
+    }
+
+    @RequestMapping(value = "/id", method = RequestMethod.PUT)
+    SysUser getSysUserById(String id) {
+        return null;
     }
 }

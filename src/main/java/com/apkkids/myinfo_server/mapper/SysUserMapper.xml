@@ -73,7 +73,7 @@
         <if test="keywords!='all' and keywords!=''">
             AND s.NAME LIKE concat( '%', #{keywords}, '%' )
         </if>
-        ORDER BY s.id LIMIT 10
+        ORDER BY s.id LIMIT 100
     </select>
 
     <update id="updateSysUser">
