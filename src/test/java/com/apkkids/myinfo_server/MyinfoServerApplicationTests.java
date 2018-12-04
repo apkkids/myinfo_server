@@ -2,10 +2,7 @@ package com.apkkids.myinfo_server;
 
 import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.common.PoiUtils;
-import com.apkkids.myinfo_server.mapper.EmployeeMapper;
-import com.apkkids.myinfo_server.mapper.MenuMapper;
-import com.apkkids.myinfo_server.mapper.SalaryMapper;
-import com.apkkids.myinfo_server.mapper.SysUserMapper;
+import com.apkkids.myinfo_server.mapper.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -299,6 +296,16 @@ public class MyinfoServerApplicationTests {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Autowired
+    RoleMapper roleMapper;
+    @Test
+    public void testRoleMapper(){
+        List<Role> roleList = roleMapper.getAllRoles();
+        for (Role role: roleList             ) {
+            System.out.println(role);
         }
     }
 }
