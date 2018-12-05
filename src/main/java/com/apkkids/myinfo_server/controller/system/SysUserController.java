@@ -38,8 +38,19 @@ public class SysUserController {
         return RespBean.error("更新用户角色失败");
     }
 
-    @RequestMapping(value = "/id", method = RequestMethod.PUT)
-    SysUser getSysUserById(String id) {
-        return null;
+    @RequestMapping("/id/{id}")
+    SysUser getSysUserById(@PathVariable Long id) {
+        SysUser sysUser = mapper.getSysUserById(id);
+        return sysUser;
+    }
+
+    @RequestMapping("/del/{id}")
+    RespBean delSysUserById(@PathVariable Long id) {
+        int result = mapper.deleteUserById(id);
+        if (result == 1) {
+            mapper.deleteRoleByUserId(id);
+            return RespBean.ok("删除管理员成功");
+        }
+        return RespBean.error("删除管理员失败");
     }
 }

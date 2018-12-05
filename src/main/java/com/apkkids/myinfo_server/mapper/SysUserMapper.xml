@@ -30,6 +30,16 @@
         </collection>
     </resultMap>
 
+    <select id="getSysUserById" resultMap="eagerLoadRoles">
+        SELECT	s.*,	r.id AS rid,	r.NAME AS rname,	r.nameZh AS rnameZh
+        FROM
+        	(
+        		( sysuser s LEFT JOIN sysuser_role s_r ON ( ( s.id = s_r.sysuser_id ) ) )
+        			LEFT JOIN role r ON ( ( s_r.role_id = r.id ) )
+        	)
+        	WHERE s.id =#{id}
+    </select>
+
     <!--搜索所有的SysUser-->
     <select id="getAllSysUser" resultType="com.apkkids.myinfo_server.bean.SysUser">
         SELECT * FROM sysuser
@@ -111,7 +121,7 @@
     </update>
 
     <insert id="addRolesForSysUser">
-        INSERT INTO sysuser_role (sysuser_id,role_id) VALUE 
+        INSERT INTO sysuser_role (sysuser_id,role_id) VALUE
         <foreach collection="rids" item="rid" separator=",">
             (#{userId}, #{rid})
         </foreach>

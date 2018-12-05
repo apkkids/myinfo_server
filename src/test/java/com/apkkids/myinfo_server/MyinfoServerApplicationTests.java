@@ -36,6 +36,9 @@ public class MyinfoServerApplicationTests {
 
     @Test
     public void testSysuserMapper() {
+        SysUser sysUser = mapper.getSysUserById((long)5);
+        System.out.println(sysUser);
+
         List<SysUser> list = mapper.getAllSysUser((long) 3);
         for (SysUser user : list) {
             System.out.println(user.getName());

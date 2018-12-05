@@ -17,6 +17,8 @@ import java.util.List;
 @Component
 @Mapper
 public interface SysUserMapper {
+    SysUser getSysUserById(Long id);
+
     /**
      * 得到除当前id外的所有管理员
      * @param currentId

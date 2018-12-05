@@ -46,6 +46,23 @@ public class SysUser implements UserDetails {
     //roles属性要多用一次关联查询得出
     private List<Role> roles;
 
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", address='" + address + '\'' +
+                ", enabled=" + enabled +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userface='" + userface + '\'' +
+                ", remark='" + remark + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+
     /**
      * 使用roles组装一个权限列表，用于MyAccessDecisionManager的decide方法
      * @return
