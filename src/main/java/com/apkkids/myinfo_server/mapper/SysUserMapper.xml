@@ -67,6 +67,12 @@
         VALUES ( #{username}, #{password});
     </insert>
 
+    <insert id="addSysUser">
+        INSERT INTO sysuser (name, phone,telephone,address,enabled,username,password,userface,remark)
+        VALUES (#{user.name},#{user.phone},#{user.telephone},#{user.address},#{user.enabled},#{user.username},
+        #{user.password},#{user.userface},#{user.remark});
+    </insert>
+
     <delete id="deleteUserById">
         DELETE FROM sysuser WHERE id=#{id};
     </delete>

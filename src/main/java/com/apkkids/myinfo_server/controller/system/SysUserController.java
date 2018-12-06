@@ -3,6 +3,7 @@ package com.apkkids.myinfo_server.controller.system;
 import com.apkkids.myinfo_server.bean.RespBean;
 import com.apkkids.myinfo_server.bean.SysUser;
 import com.apkkids.myinfo_server.mapper.SysUserMapper;
+import com.apkkids.myinfo_server.util.GeneratePassword;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,5 +53,15 @@ public class SysUserController {
             return RespBean.ok("删除管理员成功");
         }
         return RespBean.error("删除管理员失败");
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
+    RespBean addSysUser(SysUser user) {
+        user.setPassword(GeneratePassword.generatePassword(user.getPassword()));
+        int result = mapper.addSysUser(user);
+        if (result == 1) {
+            return RespBean.ok("添加管理员成功");
+        }
+        return RespBean.error("添加管理员失败");
     }
 }

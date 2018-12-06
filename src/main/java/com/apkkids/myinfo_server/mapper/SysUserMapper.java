@@ -66,6 +66,13 @@ public interface SysUserMapper {
      */
     int sysUserReg(@Param("username") String username, @Param("password") String password);
 
+    /**
+     * 添加一个管理员
+     * @param user
+     * @return
+     */
+    int addSysUser(@Param("user") SysUser user);
+
     int deleteUserById(Long id);
 
     /**

@@ -39,6 +39,15 @@ public class MyinfoServerApplicationTests {
         SysUser sysUser = mapper.getSysUserById((long)5);
         System.out.println(sysUser);
 
+        System.out.println("========SysUser[addSysUser]===========");
+        sysUser.setName("wwxxbb");
+        sysUser.setName("wxb");
+        sysUser.setPhone("1234567890");
+        sysUser.setId((long) 100);
+        sysUser.setRemark("test remark");
+        int result = mapper.addSysUser(sysUser);
+        System.out.println(result);
+
         List<SysUser> list = mapper.getAllSysUser((long) 3);
         for (SysUser user : list) {
             System.out.println(user.getName());
@@ -92,7 +101,7 @@ public class MyinfoServerApplicationTests {
         mapper.sysUserReg("test", "test");
         SysUser tempUser = mapper.selectByUsername("test");
         mapper.addRolesForSysUser(tempUser.getId(), new Long[]{Long.valueOf(2), Long.valueOf(3), Long.valueOf(4)});
-        int result = mapper.deleteRoleByUserId(tempUser.getId());
+        result = mapper.deleteRoleByUserId(tempUser.getId());
         assertEquals(result, 3);
         result = mapper.deleteUserById(tempUser.getId());
         assertEquals(result,1);
