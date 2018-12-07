@@ -10,8 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by wxb on 2018/12/2 0002.
@@ -63,5 +71,29 @@ public class SysUserController {
             return RespBean.ok("添加管理员成功");
         }
         return RespBean.error("添加管理员失败");
+    }
+
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
+    RespBean getUploadImage(MultipartFile file) {
+        if (Objects.isNull(file) || file.isEmpty()) {
+            return RespBean.ok("文件为空，请重新上传");
+        }
+
+        try {
+            byte[] bytes = file.getBytes();
+            // 这里需要重新考虑将图片写入一个web服务器中，而不是本后台程序的目录下
+            String filePath = new File(".").getCanonicalPath() + "/src/main/resources/static/pics/";
+            Path path = Paths.get(filePath + file.getOriginalFilename());
+            //如果没有files文件夹，则创建
+            if (!Files.isWritable(path)) {
+//                Files.createDirectories(Paths.get(filePath));
+            }
+            //文件写入指定路径
+//            Files.write(path, bytes);
+            return RespBean.ok("用户头像上传成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return RespBean.ok("用户头像上传失败");
+        }
     }
 }
