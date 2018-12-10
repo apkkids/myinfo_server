@@ -12,7 +12,7 @@ import java.util.List;
 public interface DepartmentMapper {
     void addDep(@Param("dep") Department department);
 
-    void deleteDep(@Param("dep") Department department);
+    void deleteDep(@Param("did") Long did);
 
     List<Department> getDepByPid(Long pid);
 

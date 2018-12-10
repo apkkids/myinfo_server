@@ -22,7 +22,7 @@
         select dl.* from department dl where dl.parentId = #{pid} and dl.enabled = 1;
     </select>
     <delete id="deleteDep">
-        delete from department where id = #{dep.id};
+        delete from department where id = #{did};
     </delete>
     <insert id="addDep" parameterType="com.apkkids.myinfo_server.bean.Department">
         insert into department (name, parentId, depPath, enabled, isParent) values

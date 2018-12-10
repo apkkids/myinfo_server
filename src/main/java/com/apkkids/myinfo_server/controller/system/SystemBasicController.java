@@ -38,4 +38,16 @@ public class SystemBasicController {
         List<Department> departments = departmentMapper.getDepByPid(pid);
         return departments;
     }
+
+    @RequestMapping(value = "/dep", method = RequestMethod.PUT)
+    public RespBean addDep( Department dep){
+        departmentMapper.addDep(dep);
+        return RespBean.ok("添加部门成功");
+    }
+
+    @RequestMapping(value = "/dep/{did}", method = RequestMethod.DELETE)
+    public RespBean deleteDep(@PathVariable Long did) {
+        departmentMapper.deleteDep(did);
+        return RespBean.ok("删除部门成功");
+    }
 }

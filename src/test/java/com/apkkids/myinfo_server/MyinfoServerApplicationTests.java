@@ -52,7 +52,7 @@ public class MyinfoServerApplicationTests {
             System.out.println(dep);
         }
 
-        departmentMapper.deleteDep(department);
+        departmentMapper.deleteDep(department.getId());
         departments = departmentMapper.getAllDeps();
         for (Department dep : departments) {
             System.out.println(dep);
