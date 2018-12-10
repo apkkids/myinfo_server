@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apkkids.myinfo_server.mapper.DepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.apkkids.myinfo_server.bean.Department">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parentId" property="parentId"/>
+        <result column="depPath" property="depPath"/>
+        <result column="enabled" property="enabled"/>
+        <result column="isParent" property="isParent"/>
+        <collection property="children" ofType="com.apkkids.myinfo_server.bean.Department"
+                    select="com.apkkids.myinfo_server.mapper.DepartmentMapper.getDepByPid"
+                    column="id">
+        </collection>
+    </resultMap>
+    <select id="getAllDeps" resultMap="BaseResultMap">
+        select * from department;
+    </select>
+    <select id="getDepByPid" resultMap="BaseResultMap">
+        select dl.* from department dl where dl.parentId = #{pid} and dl.enabled = 1;
+    </select>
+    <delete id="deleteDep">
+        delete from department where id = #{dep.id};
+    </delete>
+    <insert id="addDep" parameterType="com.apkkids.myinfo_server.bean.Department">
+        insert into department (name, parentId, depPath, enabled, isParent) values
+        (#{dep.name},#{dep.parentId},#{dep.depPath},#{dep.enabled},#{dep.isParent});
+    </insert>
+</mapper>

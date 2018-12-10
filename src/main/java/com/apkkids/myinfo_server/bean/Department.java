@@ -1,5 +1,8 @@
 package com.apkkids.myinfo_server.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by wxb on 2018/11/9 0009.
  * 对应字典表department
@@ -11,6 +14,15 @@ public class Department {
     private String depPath;
     private boolean enabled;
     private boolean isParent;
+    private List<Department> children = new ArrayList<>();
+
+    public List<Department> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Department> children) {
+        this.children = children;
+    }
 
     public Department(){}
     public Department(String name) {

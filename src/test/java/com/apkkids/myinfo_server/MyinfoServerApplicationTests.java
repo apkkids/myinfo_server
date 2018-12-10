@@ -29,14 +29,39 @@ public class MyinfoServerApplicationTests {
     MenuMapper menuMapper;
     @Autowired
     EmployeeMapper employeeMapper;
+    @Autowired
+    DepartmentMapper departmentMapper;
 
     @Test
     public void contextLoads() {
     }
 
     @Test
+    public void testDepartmentMapper() {
+        List<Department> departments = departmentMapper.getAllDeps();
+        for (Department dep : departments) {
+            System.out.println(dep);
+        }
+
+        Department department = departments.get(1);
+        department.setName("test");
+        department.setDepPath("test");
+        departmentMapper.addDep(department);
+        departments=departmentMapper.getAllDeps();
+        for (Department dep : departments) {
+            System.out.println(dep);
+        }
+
+        departmentMapper.deleteDep(department);
+        departments = departmentMapper.getAllDeps();
+        for (Department dep : departments) {
+            System.out.println(dep);
+        }
+    }
+
+    @Test
     public void testSysuserMapper() {
-        SysUser sysUser = mapper.getSysUserById((long)5);
+        SysUser sysUser = mapper.getSysUserById((long) 5);
         System.out.println(sysUser);
 
         System.out.println("========SysUser[addSysUser]===========");
@@ -78,7 +103,7 @@ public class MyinfoServerApplicationTests {
         }
 
         System.out.println("========SysUser[deleteUserById]===========");
-        mapper.deleteUserById((long)anotheradmin.getId());
+        mapper.deleteUserById((long) anotheradmin.getId());
         anotheradmin = mapper.selectByUsername("anotheradmin");
         if (anotheradmin == null) {
             System.out.println("删除成功");
@@ -95,7 +120,7 @@ public class MyinfoServerApplicationTests {
         zenggong.setPhone("1122334");
         mapper.updateSysUser(zenggong);
         zenggong = mapper.loadUserByUsername("zenggong");
-        assertEquals(zenggong.getPhone(),"1122334");
+        assertEquals(zenggong.getPhone(), "1122334");
 
         System.out.println("========SysUser[addRolesForSysUser,deleteRoleByUserId]===========");
         mapper.sysUserReg("test", "test");
@@ -104,7 +129,7 @@ public class MyinfoServerApplicationTests {
         result = mapper.deleteRoleByUserId(tempUser.getId());
         assertEquals(result, 3);
         result = mapper.deleteUserById(tempUser.getId());
-        assertEquals(result,1);
+        assertEquals(result, 1);
 
         System.out.println("========SysUser[getUsersByKeywords]===========");
         list = mapper.getUsersByKeywords("all");
@@ -170,7 +195,7 @@ public class MyinfoServerApplicationTests {
     @Test
     public void testEmployeeMapper() {
         List<Employee> list = employeeMapper.getEmployeeByPage(0, 5, null, null, null, null, null,
-                null,null,null,null);
+                null, null, null, null);
         for (Employee e : list) {
             System.out.println("========Employee[" + e.getName() + "]===========");
             System.out.println(e.getId() + "," + e.getName() + "," + e.getAddress() + "," + e.getGender());
@@ -208,7 +233,7 @@ public class MyinfoServerApplicationTests {
     }
 
     @Test
-    public void testEmployeeMapper_add(){
+    public void testEmployeeMapper_add() {
         Employee emp = new Employee();
         emp.setName("test");
         emp.setGender("男");
@@ -288,10 +313,10 @@ public class MyinfoServerApplicationTests {
     }
 
     @Test
-    public void testPoiUtils(){
+    public void testPoiUtils() {
         List<Employee> list = employeeMapper.getEmployeeByPage(0, 10, null, null, null, null, null,
-                null,null,null,null);
-        for (Employee emp : list             ) {
+                null, null, null, null);
+        for (Employee emp : list) {
             System.out.println(emp);
         }
         ResponseEntity<byte[]> entity = PoiUtils.exportEmp2Excel(list);
@@ -313,10 +338,11 @@ public class MyinfoServerApplicationTests {
 
     @Autowired
     RoleMapper roleMapper;
+
     @Test
-    public void testRoleMapper(){
+    public void testRoleMapper() {
         List<Role> roleList = roleMapper.getAllRoles();
-        for (Role role: roleList             ) {
+        for (Role role : roleList) {
             System.out.println(role);
         }
     }
