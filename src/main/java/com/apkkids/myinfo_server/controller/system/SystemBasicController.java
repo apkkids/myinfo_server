@@ -58,4 +58,11 @@ public class SystemBasicController {
         departmentMapper.deleteDep(did);
         return RespBean.ok("删除部门成功");
     }
+
+    @RequestMapping(value = "/getString", method = RequestMethod.GET)
+    public RespBean getString(){
+        RespBean bean = RespBean.ok("getString成功");
+        bean.setMsg("王佳雯很漂亮");
+        return bean;
+    }
 }
