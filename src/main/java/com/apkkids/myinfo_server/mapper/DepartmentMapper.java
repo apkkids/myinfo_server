@@ -17,4 +17,17 @@ public interface DepartmentMapper {
     List<Department> getDepByPid(Long pid);
 
     List<Department> getAllDeps();
+
+    /**
+     * 将id代表的Department的IsParent属性设置为1
+     * @param id
+     */
+    void setIsParent(Long id);
+
+    /**
+     * 将id代表的Department的depPath属性设置为参数值
+     * @param id
+     * @param depPath
+     */
+    void setDepPath(@Param("id") Long id, @Param("depPath") String depPath);
 }

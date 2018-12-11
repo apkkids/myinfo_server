@@ -42,6 +42,14 @@ public class SystemBasicController {
     @RequestMapping(value = "/dep", method = RequestMethod.PUT)
     public RespBean addDep( Department dep){
         departmentMapper.addDep(dep);
+        departmentMapper.setIsParent(dep.getParentId());
+        List<Department> departments = departmentMapper.getDepByPid(dep.getParentId());
+        for (Department department: departments             ) {
+            if (department.getDepPath().equals(dep.getDepPath())) {
+                departmentMapper.setDepPath(department.getId(), department.getDepPath() + "." + department.getId());
+                break;
+            }
+        }
         return RespBean.ok("添加部门成功");
     }
 

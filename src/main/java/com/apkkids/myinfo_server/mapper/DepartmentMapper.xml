@@ -28,4 +28,19 @@
         insert into department (name, parentId, depPath, enabled, isParent) values
         (#{dep.name},#{dep.parentId},#{dep.depPath},#{dep.enabled},#{dep.isParent});
     </insert>
+    <update id="setIsParent">
+        update department
+        <set>
+            isParent = 1
+        </set>
+        where id = #{id};
+    </update>
+
+    <update id="setDepPath">
+        update department
+        <set>
+            depPath = #{depPath}
+        </set>
+        where id = #{id};
+    </update>
 </mapper>
