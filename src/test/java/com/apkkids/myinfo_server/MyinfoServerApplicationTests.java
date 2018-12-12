@@ -31,11 +31,20 @@ public class MyinfoServerApplicationTests {
     EmployeeMapper employeeMapper;
     @Autowired
     DepartmentMapper departmentMapper;
+    @Autowired
+    PositionMapper positionMapper;
 
     @Test
     public void contextLoads() {
     }
 
+    @Test
+    public void testPositionMapper(){
+        List<Position> positions = positionMapper.getAllPositions();
+        for (Position pos:positions             ) {
+            System.out.println(pos);
+        }
+    }
     @Test
     public void testDepartmentMapper() {
         List<Department> departments = departmentMapper.getAllDeps();

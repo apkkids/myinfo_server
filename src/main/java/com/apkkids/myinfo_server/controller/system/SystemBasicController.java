@@ -1,9 +1,11 @@
 package com.apkkids.myinfo_server.controller.system;
 
 import com.apkkids.myinfo_server.bean.Department;
+import com.apkkids.myinfo_server.bean.Position;
 import com.apkkids.myinfo_server.bean.RespBean;
 import com.apkkids.myinfo_server.bean.Role;
 import com.apkkids.myinfo_server.mapper.DepartmentMapper;
+import com.apkkids.myinfo_server.mapper.PositionMapper;
 import com.apkkids.myinfo_server.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +27,8 @@ public class SystemBasicController {
     RoleMapper mapper;
     @Autowired
     DepartmentMapper departmentMapper;
+    @Autowired
+    PositionMapper positionMapper;
     /**
      * 返回系统中所有角色
      * @return
@@ -59,10 +65,21 @@ public class SystemBasicController {
         return RespBean.ok("删除部门成功");
     }
 
-    @RequestMapping(value = "/getString", method = RequestMethod.GET)
-    public RespBean getString(){
-        RespBean bean = RespBean.ok("getString成功");
-        bean.setMsg("王佳雯很漂亮");
-        return bean;
+    @RequestMapping(value = "/pos/getAll", method = RequestMethod.GET)
+    public List<Position> getAllPositions() {
+        return positionMapper.getAllPositions();
+    }
+
+    @RequestMapping(value = "/pos/add", method = RequestMethod.PUT)
+    public RespBean addPosition(String name) {
+        Position pos = new Position();
+        pos.setName(name);
+        pos.setEnabled(true);
+        pos.setCreateDate(new Timestamp(new Date().getTime()));
+        Long result = positionMapper.addPosition(pos);
+        if (result == 1) {
+            return RespBean.ok("add Position success.");
+        }
+        return RespBean.error("add Position failed.");
     }
 }

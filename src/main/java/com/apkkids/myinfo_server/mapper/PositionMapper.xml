@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apkkids.myinfo_server.mapper.PositionMapper">
+    <resultMap id="BaseResultMap" type="com.apkkids.myinfo_server.bean.Position">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="createDate" property="createDate"/>
+        <result column="enabled" property="enabled"/>
+    </resultMap>
+    <select id="getAllPositions" resultMap="BaseResultMap">
+        select * from position;
+    </select>
+    <delete id="deletePosition">
+        delete from position where id = #{did};
+    </delete>
+    <insert id="addPosition" parameterType="com.apkkids.myinfo_server.bean.Position">
+        insert into position (name, createDate, enabled) values
+        (#{pos.name},#{pos.createDate},#{pos.enabled});
+    </insert>
+</mapper>
