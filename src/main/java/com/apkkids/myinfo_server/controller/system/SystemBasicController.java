@@ -71,15 +71,20 @@ public class SystemBasicController {
     }
 
     @RequestMapping(value = "/pos/add", method = RequestMethod.PUT)
-    public RespBean addPosition(String name) {
-        Position pos = new Position();
-        pos.setName(name);
-        pos.setEnabled(true);
+    public RespBean addPosition(Position pos) {
         pos.setCreateDate(new Timestamp(new Date().getTime()));
         Long result = positionMapper.addPosition(pos);
         if (result == 1) {
             return RespBean.ok("add Position success.");
         }
         return RespBean.error("add Position failed.");
+    }
+
+    @RequestMapping(value = "/pos/{ids}", method = RequestMethod.DELETE)
+    public RespBean deletePosition(@PathVariable("ids") String ids) {
+        String[] split = ids.split(",");
+//        if (positionMapper.deletePosition(did) == 1)
+        positionMapper.deletePositionById(split);
+        return RespBean.ok("删除职位成功");
     }
 }

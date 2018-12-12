@@ -1,6 +1,7 @@
 package com.apkkids.myinfo_server.bean;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 对应字典表position
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
 public class Position {
     private  Long id;
     private String name;
-    private Timestamp createDate;
+    private Date createDate;
     private boolean enabled;
 
     public Position(){}
@@ -55,7 +56,7 @@ public class Position {
         this.name = name;
     }
 
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 

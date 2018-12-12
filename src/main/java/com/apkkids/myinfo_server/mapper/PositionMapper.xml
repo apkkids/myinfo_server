@@ -6,14 +6,17 @@
     <resultMap id="BaseResultMap" type="com.apkkids.myinfo_server.bean.Position">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="createDate" property="createDate"/>
+        <result column="createDate" property="createDate" jdbcType="DATE"/>
         <result column="enabled" property="enabled"/>
     </resultMap>
     <select id="getAllPositions" resultMap="BaseResultMap">
         select * from position;
     </select>
-    <delete id="deletePosition">
-        delete from position where id = #{did};
+    <delete id="deletePositionById" parameterType="int">
+        delete from position where id in 
+        <foreach collection="ids" item="idItem" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
     </delete>
     <insert id="addPosition" parameterType="com.apkkids.myinfo_server.bean.Position">
         insert into position (name, createDate, enabled) values

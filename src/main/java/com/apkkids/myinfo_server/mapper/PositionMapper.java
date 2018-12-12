@@ -13,7 +13,7 @@ import java.util.List;
 public interface PositionMapper {
     public List<Position> getAllPositions();
 
-    public Long deletePosition(@Param("did") Long did);
+    public Long deletePositionById(@Param("ids") String[] ids);
 
     public Long addPosition(@Param("pos") Position pos);
 }
