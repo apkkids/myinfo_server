@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apkkids.myinfo_server.mapper.JobLevelMapper">
+    <resultMap id="BaseResultMap" type="com.apkkids.myinfo_server.bean.JobLevel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="titleLevel" property="titleLevel" jdbcType="VARCHAR"/>
+        <result column="createDate" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="enabled" property="enabled" jdbcType="BIT"/>
+    </resultMap>
+    <select id="getAllJobLevels" resultMap="BaseResultMap">
+        select * from joblevel;
+    </select>
+    <delete id="deleteJobLevelById" parameterType="int">
+        delete from joblevel where id in
+        <foreach collection="ids" item="idItem" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+    <insert id="addJobLevel" parameterType="com.apkkids.myinfo_server.bean.JobLevel">
+        insert into joblevel (name, titleLevel, createDate, enabled) values
+        (#{jobLevel.name},#{jobLevel.titleLevel},#{jobLevel.createDate},#{jobLevel.enabled});
+    </insert>
+    <update id="updateJobLevel" parameterType="com.apkkids.myinfo_server.bean.JobLevel">
+        update joblevel
+        <set>
+            <if test="jobLevel.name != null">
+                name = #{jobLevel.name,jdbcType=VARCHAR},
+            </if>
+            <if test="jobLevel.titleLevel != null">
+                createDate = #{jobLevel.titleLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="jobLevel.createDate != null">
+                createDate = #{jobLevel.createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="jobLevel.enabled != null">
+                enabled = #{jobLevel.enabled,jdbcType=BIT}
+            </if>
+        </set>
+        where id = #{jobLevel.id, jdbcType=BIGINT};
+    </update>
+</mapper>

@@ -87,4 +87,12 @@ public class SystemBasicController {
         positionMapper.deletePositionById(split);
         return RespBean.ok("删除职位成功");
     }
+
+    @RequestMapping(value = "/pos",method = RequestMethod.PUT)
+    public RespBean updatePos(Position pos){
+        if (positionMapper.updatePos(pos) == 1) {
+            return RespBean.ok("修改职位成功");
+        }
+        return RespBean.error("修改职位失败");
+    }
 }

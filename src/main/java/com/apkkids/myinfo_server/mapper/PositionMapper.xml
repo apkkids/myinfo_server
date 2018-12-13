@@ -22,4 +22,19 @@
         insert into position (name, createDate, enabled) values
         (#{pos.name},#{pos.createDate},#{pos.enabled});
     </insert>
+    <update id="updatePos" parameterType="com.apkkids.myinfo_server.bean.Position">
+        update position
+        <set>
+            <if test="pos.name != null">
+                name = #{pos.name,jdbcType=VARCHAR},
+            </if>
+            <if test="pos.createDate != null">
+                createDate = #{pos.createDate,jdbcType=DATE},
+            </if>
+            <if test="pos.enabled != null">
+                enabled = #{pos.enabled,jdbcType=BIT}
+            </if>
+        </set>
+        where id = #{pos.id, jdbcType=BIGINT};
+    </update>
 </mapper>

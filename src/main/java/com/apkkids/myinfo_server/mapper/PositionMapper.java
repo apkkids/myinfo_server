@@ -16,4 +16,6 @@ public interface PositionMapper {
     public Long deletePositionById(@Param("ids") String[] ids);
 
     public Long addPosition(@Param("pos") Position pos);
+
+    int updatePos(@Param("pos") Position pos);
 }

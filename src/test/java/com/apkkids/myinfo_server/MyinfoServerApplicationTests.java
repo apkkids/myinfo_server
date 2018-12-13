@@ -33,9 +33,30 @@ public class MyinfoServerApplicationTests {
     DepartmentMapper departmentMapper;
     @Autowired
     PositionMapper positionMapper;
+    @Autowired
+    JobLevelMapper jobLevelMapper;
 
     @Test
     public void contextLoads() {
+    }
+
+    @Test
+    public void testJobLevelMapper(){
+        List<JobLevel> jobLevels = jobLevelMapper.getAllJobLevels();
+        if (jobLevels.isEmpty()) {
+            return;
+        }
+        for (JobLevel j : jobLevels) {
+            System.out.println(j);
+        }
+        JobLevel newOne = jobLevels.get(jobLevels.size()-1);
+        newOne.setName("testTitle");
+        newOne.setTitleLevel("初级");
+        newOne.setEnabled(false);
+        Long result = jobLevelMapper.addJobLevel(newOne);
+        assertEquals(result,Long.valueOf(1));
+
+
     }
 
     @Test
