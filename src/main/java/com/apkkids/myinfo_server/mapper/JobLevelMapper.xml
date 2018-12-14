@@ -30,7 +30,7 @@
                 name = #{jobLevel.name,jdbcType=VARCHAR},
             </if>
             <if test="jobLevel.titleLevel != null">
-                createDate = #{jobLevel.titleLevel,jdbcType=VARCHAR},
+                titleLevel = #{jobLevel.titleLevel,jdbcType=VARCHAR},
             </if>
             <if test="jobLevel.createDate != null">
                 createDate = #{jobLevel.createDate,jdbcType=TIMESTAMP},

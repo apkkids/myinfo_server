@@ -49,6 +49,8 @@ public class MyinfoServerApplicationTests {
         for (JobLevel j : jobLevels) {
             System.out.println(j);
         }
+
+        //add a new record
         JobLevel newOne = jobLevels.get(jobLevels.size()-1);
         newOne.setName("testTitle");
         newOne.setTitleLevel("初级");
@@ -56,7 +58,30 @@ public class MyinfoServerApplicationTests {
         Long result = jobLevelMapper.addJobLevel(newOne);
         assertEquals(result,Long.valueOf(1));
 
+        //update this new one
+        JobLevel thatOne = null;
+        jobLevels = jobLevelMapper.getAllJobLevels();
+        for (JobLevel j:jobLevels             ) {
+            if (j.getName().equals("testTitle")) {
+                thatOne = j;
+                break;
+            }
+        }
+        if (thatOne != null) {
+            thatOne.setName("thatOne");
+            thatOne.setTitleLevel("中级");
+            thatOne.setEnabled(true);
+            int rel = jobLevelMapper.updateJobLevel(thatOne);
+            assertEquals(rel ,1);
+        }
 
+        // delete that one
+        if (thatOne != null) {
+            String[] ids = new String[1];
+            ids[0] = String.valueOf(thatOne.getId());
+            result = jobLevelMapper.deleteJobLevelById(ids);
+            assertEquals(result,Long.valueOf(1));
+        }
     }
 
     @Test

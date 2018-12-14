@@ -1,10 +1,8 @@
 package com.apkkids.myinfo_server.controller.system;
 
-import com.apkkids.myinfo_server.bean.Department;
-import com.apkkids.myinfo_server.bean.Position;
-import com.apkkids.myinfo_server.bean.RespBean;
-import com.apkkids.myinfo_server.bean.Role;
+import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.DepartmentMapper;
+import com.apkkids.myinfo_server.mapper.JobLevelMapper;
 import com.apkkids.myinfo_server.mapper.PositionMapper;
 import com.apkkids.myinfo_server.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +27,17 @@ public class SystemBasicController {
     DepartmentMapper departmentMapper;
     @Autowired
     PositionMapper positionMapper;
+    @Autowired
+    JobLevelMapper jobLevelMapper;
+
     /**
      * 返回系统中所有角色
+     *
      * @return
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
-    public List<Role> getAllRoles(){
-        List<Role> list =mapper.getAllRoles();
+    public List<Role> getAllRoles() {
+        List<Role> list = mapper.getAllRoles();
         return list;
     }
 
@@ -46,11 +48,11 @@ public class SystemBasicController {
     }
 
     @RequestMapping(value = "/dep", method = RequestMethod.PUT)
-    public RespBean addDep( Department dep){
+    public RespBean addDep(Department dep) {
         departmentMapper.addDep(dep);
         departmentMapper.setIsParent(dep.getParentId());
         List<Department> departments = departmentMapper.getDepByPid(dep.getParentId());
-        for (Department department: departments             ) {
+        for (Department department : departments) {
             if (department.getDepPath().equals(dep.getDepPath())) {
                 departmentMapper.setDepPath(department.getId(), department.getDepPath() + "." + department.getId());
                 break;
@@ -88,11 +90,41 @@ public class SystemBasicController {
         return RespBean.ok("删除职位成功");
     }
 
-    @RequestMapping(value = "/pos",method = RequestMethod.PUT)
-    public RespBean updatePos(Position pos){
+    @RequestMapping(value = "/pos", method = RequestMethod.PUT)
+    public RespBean updatePos(Position pos) {
         if (positionMapper.updatePos(pos) == 1) {
             return RespBean.ok("修改职位成功");
         }
         return RespBean.error("修改职位失败");
+    }
+
+    //JobLevel request
+    @RequestMapping(value = "/jobLevel/getAll", method = RequestMethod.GET)
+    public List<JobLevel> getAllJobLevels() {
+        return jobLevelMapper.getAllJobLevels();
+    }
+
+    @RequestMapping(value = "/jobLevel", method = RequestMethod.POST)
+    public RespBean addJobLevel(JobLevel jobLevel) {
+        if (jobLevelMapper.addJobLevel(jobLevel) == 1) {
+            return RespBean.ok("添加职称成功");
+        }
+        return RespBean.error("添加职称失败");
+    }
+
+    @RequestMapping(value = "/jobLevel", method = RequestMethod.PUT)
+    public RespBean updateJobLevel(JobLevel jobLevel) {
+        if (jobLevelMapper.updateJobLevel(jobLevel) == 1) {
+            return RespBean.ok("更新职称成功");
+        }
+        return RespBean.error("更新职称失败");
+    }
+
+    @RequestMapping(value = "/jobLevel/{ids}", method = RequestMethod.DELETE)
+    public RespBean deleteJobLevelById(@PathVariable String[] ids){
+        if (jobLevelMapper.deleteJobLevelById(ids) == ids.length) {
+            return RespBean.ok("删除职称成功");
+        }
+        return RespBean.error("删除职称失败");
     }
 }
