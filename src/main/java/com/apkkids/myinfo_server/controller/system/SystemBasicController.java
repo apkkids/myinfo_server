@@ -121,10 +121,9 @@ public class SystemBasicController {
     }
 
     @RequestMapping(value = "/jobLevel/{ids}", method = RequestMethod.DELETE)
-    public RespBean deleteJobLevelById(@PathVariable String[] ids){
-        if (jobLevelMapper.deleteJobLevelById(ids) == ids.length) {
-            return RespBean.ok("删除职称成功");
-        }
-        return RespBean.error("删除职称失败");
+    public RespBean deleteJobLevelById(@PathVariable("ids") String ids) {
+        String[] split = ids.split(",");
+        jobLevelMapper.deleteJobLevelById(split);
+        return RespBean.ok("删除职称成功");
     }
 }
