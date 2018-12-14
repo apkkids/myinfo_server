@@ -11,4 +11,23 @@
     <select id="getAllRoles" resultMap="BaseResultMap">
         select * from role;
     </select>
+    <insert id="addRole" parameterType="com.apkkids.myinfo_server.bean.Role">
+        insert into role (name, nameZh) VALUES
+        (#{role.name}, #{role.nameZh});
+    </insert>
+    <delete id="deleteRoleById" parameterType="String">
+         delete from role where id = #{id}
+    </delete>
+    <update id="updateRole" parameterType="com.apkkids.myinfo_server.bean.Role">
+        update role
+        <set>
+            <if test="role.name != null">
+                name = #{role.name,jdbcType=VARCHAR},
+            </if>
+            <if test="role.nameZh != null">
+                nameZh = #{role.nameZh,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{role.id};
+    </update>
 </mapper>

@@ -400,5 +400,32 @@ public class MyinfoServerApplicationTests {
         for (Role role : roleList) {
             System.out.println(role);
         }
+
+        Role role = roleList.get(roleList.size() - 1);
+        if (role != null) {
+            role.setName("lasttest");
+            role.setNameZh("测试角色最后");
+            int result = roleMapper.addRole(role);
+            assertEquals(result,1);
+        }
+
+        roleList = roleMapper.getAllRoles();
+        for (Role r:roleList             ) {
+            if (r.getName().equals("lasttest")) {
+                role = r;
+                break;
+            }
+        }
+        if (role != null) {
+            role.setName("chageTest");
+            role.setNameZh("测试角色改变");
+            int result = roleMapper.updateRole(role);
+            assertEquals(result,1);
+        }
+
+        if (role != null) {
+            int result = roleMapper.deleteRoleById(String.valueOf(role.getId()));
+            assertEquals(result,1);
+        }
     }
 }
