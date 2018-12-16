@@ -15,8 +15,25 @@ import java.util.List;
 @Component
 @Mapper
 public interface MenuMapper {
+    /**
+     * 返回所有的menu，组织为多个目录
+     * @return
+     */
     List<Menu> getAllMenu();
     List<Menu> getMenusBySysUserId(@Param("id") Long id);
+
+    /**
+     * 返回一个menu菜单树,它只有一个根“所有”
+     * @return
+     */
+    List<Menu> menuTree();
+
+    /**
+     * 根据角色id选择菜单
+     * @param rid
+     * @return
+     */
+    List<Long> getMenusByRid(Long rid);
 
 //    /**
 //     * 组合menu、menu_role、role三个表，查询所有的menu以及它所需的角色

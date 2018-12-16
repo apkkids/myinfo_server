@@ -41,7 +41,7 @@ public class MyinfoServerApplicationTests {
     }
 
     @Test
-    public void testJobLevelMapper(){
+    public void testJobLevelMapper() {
         List<JobLevel> jobLevels = jobLevelMapper.getAllJobLevels();
         if (jobLevels.isEmpty()) {
             return;
@@ -51,17 +51,17 @@ public class MyinfoServerApplicationTests {
         }
 
         //add a new record
-        JobLevel newOne = jobLevels.get(jobLevels.size()-1);
+        JobLevel newOne = jobLevels.get(jobLevels.size() - 1);
         newOne.setName("testTitle");
         newOne.setTitleLevel("初级");
         newOne.setEnabled(false);
         Long result = jobLevelMapper.addJobLevel(newOne);
-        assertEquals(result,Long.valueOf(1));
+        assertEquals(result, Long.valueOf(1));
 
         //update this new one
         JobLevel thatOne = null;
         jobLevels = jobLevelMapper.getAllJobLevels();
-        for (JobLevel j:jobLevels             ) {
+        for (JobLevel j : jobLevels) {
             if (j.getName().equals("testTitle")) {
                 thatOne = j;
                 break;
@@ -72,7 +72,7 @@ public class MyinfoServerApplicationTests {
             thatOne.setTitleLevel("中级");
             thatOne.setEnabled(true);
             int rel = jobLevelMapper.updateJobLevel(thatOne);
-            assertEquals(rel ,1);
+            assertEquals(rel, 1);
         }
 
         // delete that one
@@ -80,17 +80,18 @@ public class MyinfoServerApplicationTests {
             String[] ids = new String[1];
             ids[0] = String.valueOf(thatOne.getId());
             result = jobLevelMapper.deleteJobLevelById(ids);
-            assertEquals(result,Long.valueOf(1));
+            assertEquals(result, Long.valueOf(1));
         }
     }
 
     @Test
-    public void testPositionMapper(){
+    public void testPositionMapper() {
         List<Position> positions = positionMapper.getAllPositions();
-        for (Position pos:positions             ) {
+        for (Position pos : positions) {
             System.out.println(pos);
         }
     }
+
     @Test
     public void testDepartmentMapper() {
         List<Department> departments = departmentMapper.getAllDeps();
@@ -102,7 +103,7 @@ public class MyinfoServerApplicationTests {
         department.setName("test");
         department.setDepPath("test");
         departmentMapper.addDep(department);
-        departments=departmentMapper.getAllDeps();
+        departments = departmentMapper.getAllDeps();
         for (Department dep : departments) {
             System.out.println(dep);
         }
@@ -190,6 +191,19 @@ public class MyinfoServerApplicationTests {
         list = mapper.getUsersByKeywords("all");
         for (SysUser user : list) {
             System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testMenuMapperMenuTree() {
+        List<Menu> menuList = menuMapper.menuTree();
+        for (Menu menu : menuList) {
+            System.out.println(menu);
+        }
+        //
+        List<Long> ids = menuMapper.getMenusByRid((long) 2);
+        for (Long id:ids             ) {
+            System.out.println(id);
         }
     }
 
@@ -406,11 +420,11 @@ public class MyinfoServerApplicationTests {
             role.setName("lasttest");
             role.setNameZh("测试角色最后");
             int result = roleMapper.addRole(role);
-            assertEquals(result,1);
+            assertEquals(result, 1);
         }
 
         roleList = roleMapper.getAllRoles();
-        for (Role r:roleList             ) {
+        for (Role r : roleList) {
             if (r.getName().equals("lasttest")) {
                 role = r;
                 break;
@@ -420,12 +434,12 @@ public class MyinfoServerApplicationTests {
             role.setName("chageTest");
             role.setNameZh("测试角色改变");
             int result = roleMapper.updateRole(role);
-            assertEquals(result,1);
+            assertEquals(result, 1);
         }
 
         if (role != null) {
             int result = roleMapper.deleteRoleById(String.valueOf(role.getId()));
-            assertEquals(result,1);
+            assertEquals(result, 1);
         }
     }
 }

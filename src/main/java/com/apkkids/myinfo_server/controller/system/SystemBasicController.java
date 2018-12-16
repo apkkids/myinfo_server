@@ -1,10 +1,7 @@
 package com.apkkids.myinfo_server.controller.system;
 
 import com.apkkids.myinfo_server.bean.*;
-import com.apkkids.myinfo_server.mapper.DepartmentMapper;
-import com.apkkids.myinfo_server.mapper.JobLevelMapper;
-import com.apkkids.myinfo_server.mapper.PositionMapper;
-import com.apkkids.myinfo_server.mapper.RoleMapper;
+import com.apkkids.myinfo_server.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 系统基础信息的Controller
@@ -24,12 +23,15 @@ public class SystemBasicController {
     @Autowired
     RoleMapper mapper;
     @Autowired
+    MenuMapper menuMapper;
+    @Autowired
     DepartmentMapper departmentMapper;
     @Autowired
     PositionMapper positionMapper;
     @Autowired
     JobLevelMapper jobLevelMapper;
 
+    // Role request
     /**
      * 返回系统中所有角色
      *
@@ -40,11 +42,25 @@ public class SystemBasicController {
         List<Role> list = mapper.getAllRoles();
         return list;
     }
-
     @RequestMapping(value = "/dep/{pid}", method = RequestMethod.GET)
     public List<Department> getDepByPid(@PathVariable Long pid) {
         List<Department> departments = departmentMapper.getDepByPid(pid);
         return departments;
+    }
+
+    /**
+     * 将某个角色id需要的权限组装成一个map返回给前端
+     * @param rid
+     * @return
+     */
+    @RequestMapping(value = "/menuTree/{rid}", method = RequestMethod.GET)
+    public Map<String, Object> menuTree(@PathVariable("rid") Long rid) {
+        Map<String, Object> map = new HashMap<>();
+        List<Menu> menus = menuMapper.menuTree();
+        List<Long> mids = menuMapper.getMenusByRid(rid);
+        map.put("menus", menus);
+        map.put("mids", mids);
+        return map;
     }
 
     @RequestMapping(value = "/dep", method = RequestMethod.PUT)

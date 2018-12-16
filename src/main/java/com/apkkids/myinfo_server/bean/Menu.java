@@ -34,6 +34,23 @@ public class Menu {
     // 封装了keepAlive和requireAuth的MenuMeta属性
     private MenuMeta meta;
 
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", path='" + path + '\'' +
+                ", component='" + component + '\'' +
+                ", name='" + name + '\'' +
+                ", iconCls='" + iconCls + '\'' +
+                ", parentId=" + parentId +
+                ", enabled=" + enabled +
+                ", meta=" + meta +
+                ", roles=" + roles +
+                ", children=" + children +
+                '}';
+    }
+
     // 通过二次查询组合得到的集合属性
     private List<Role> roles;
     private List<Menu> children;
