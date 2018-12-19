@@ -2,6 +2,7 @@ package com.apkkids.myinfo_server.controller.system;
 
 import com.apkkids.myinfo_server.bean.*;
 import com.apkkids.myinfo_server.mapper.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ public class SystemBasicController {
     PositionMapper positionMapper;
     @Autowired
     JobLevelMapper jobLevelMapper;
+    @Autowired
+    MenuRoleMapper menuRoleMapper;
 
     // Role request
     /**
@@ -42,6 +45,37 @@ public class SystemBasicController {
         List<Role> list = mapper.getAllRoles();
         return list;
     }
+
+    @RequestMapping(value = "/role/{did}",method = RequestMethod.DELETE)
+    public RespBean deleteRoleById(@PathVariable("did") Long did){
+        if (mapper.deleteRoleById(String.valueOf(did)) == 1) {
+            return RespBean.ok("删除角色成功");
+        }
+        return RespBean.error("删除角色失败");
+    }
+
+    @RequestMapping(value = "/role", method = RequestMethod.POST)
+    public RespBean addRole(Role role) {
+        if (mapper.addRole(role) == 1) {
+            return RespBean.ok("添加角色成功");
+        }
+        return RespBean.error("添加角色失败");
+    }
+
+    /**
+     * 更新角色权限表menu_role
+     * @param rid 角色id
+     * @param mids 角色对应的menu表中的id集合
+     * @return
+     */
+    @RequestMapping(value = "/role", method = RequestMethod.PUT)
+    public RespBean updateMenuRoleByRid(Long rid,  Long[] mids){
+        //首先删除这个角色所有权限，再讲mids中所有的权限加入
+        menuRoleMapper.deleteMenuByRid(rid);
+        menuRoleMapper.addMenu(rid, mids);
+        return RespBean.ok("更新角色权限成功");
+    }
+
     @RequestMapping(value = "/dep/{pid}", method = RequestMethod.GET)
     public List<Department> getDepByPid(@PathVariable Long pid) {
         List<Department> departments = departmentMapper.getDepByPid(pid);
