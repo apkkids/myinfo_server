@@ -35,6 +35,7 @@ public class SystemBasicController {
     MenuRoleMapper menuRoleMapper;
 
     // Role request
+
     /**
      * 返回系统中所有角色
      *
@@ -46,8 +47,8 @@ public class SystemBasicController {
         return list;
     }
 
-    @RequestMapping(value = "/role/{did}",method = RequestMethod.DELETE)
-    public RespBean deleteRoleById(@PathVariable("did") Long did){
+    @RequestMapping(value = "/role/{did}", method = RequestMethod.DELETE)
+    public RespBean deleteRoleById(@PathVariable("did") Long did) {
         if (mapper.deleteRoleById(String.valueOf(did)) == 1) {
             return RespBean.ok("删除角色成功");
         }
@@ -64,16 +65,19 @@ public class SystemBasicController {
 
     /**
      * 更新角色权限表menu_role
-     * @param rid 角色id
+     *
+     * @param rid  角色id
      * @param mids 角色对应的menu表中的id集合
      * @return
      */
-    @RequestMapping(value = "/role", method = RequestMethod.PUT)
-    public RespBean updateMenuRoleByRid(Long rid,  Long[] mids){
-        //首先删除这个角色所有权限，再讲mids中所有的权限加入
+    @RequestMapping(value = "/updateMenuRole", method = RequestMethod.PUT)
+    public RespBean updateMenuRoleByRid(Long rid, Long[] mids) {
+        //首先删除这个角色所有权限，再将mids中所有的权限加入
         menuRoleMapper.deleteMenuByRid(rid);
-        menuRoleMapper.addMenu(rid, mids);
-        return RespBean.ok("更新角色权限成功");
+        if (mids.length == 0 || mids.length == menuRoleMapper.addMenu(rid, mids)) {
+            return RespBean.ok("更新角色权限成功");
+        }
+        return RespBean.error("更新角色权限失败");
     }
 
     @RequestMapping(value = "/dep/{pid}", method = RequestMethod.GET)
@@ -84,6 +88,7 @@ public class SystemBasicController {
 
     /**
      * 将某个角色id需要的权限组装成一个map返回给前端
+     *
      * @param rid
      * @return
      */
