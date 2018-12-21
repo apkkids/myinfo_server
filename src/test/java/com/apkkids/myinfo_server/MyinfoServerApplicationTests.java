@@ -331,6 +331,14 @@ public class MyinfoServerApplicationTests {
         System.out.println(result);
     }
 
+    @Test
+    public void testEmployeeMapper_getEmployeeWithSalary()    {
+        List<Employee> employeeList = employeeMapper.getEmployeeWithSalary(0, 10);
+        for (Employee emp : employeeList) {
+            System.out.println(emp);
+        }
+    }
+
     @Autowired
     SalaryMapper salaryMapper;
 

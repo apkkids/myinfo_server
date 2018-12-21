@@ -1,4 +1,4 @@
-package com.apkkids.myinfo_server.controller;
+package com.apkkids.myinfo_server.controller.salary;
 
 import com.apkkids.myinfo_server.bean.RespBean;
 import com.apkkids.myinfo_server.bean.Salary;

@@ -52,6 +52,38 @@ public interface EmployeeMapper {
                             @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId,
                             @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId,
                             @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
+
+    /**
+     * 查询emp以及工资套账
+     * @param start
+     * @param size
+     * @return
+     */
+    List<Employee> getEmployeeWithSalary(@Param("start") Integer start, @Param("size") Integer size);
+
+    /**
+     * 更新员工工资套账
+     * @param eid 员工id
+     * @param sid 工资账套id
+     * @return
+     */
+    Integer updateSalaryEmp(@Param("eid") Integer eid, @Param("sid") Integer sid);
+
+    /**
+     * 查询有账套的员工
+     * @param eid
+     * @return
+     */
+    Integer getSalaryEmpCount(@Param("eid") Integer eid);
+
+    /**
+     * 增加员工工资套账
+     * @param eid
+     * @param sid
+     * @return
+     */
+    Integer addSalaryEmp(@Param("eid") Integer eid, @Param("sid") Integer sid);
+
     /**
      * 返回所有Nation字典表内容
      * @return

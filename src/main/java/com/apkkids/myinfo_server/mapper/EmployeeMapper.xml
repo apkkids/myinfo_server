@@ -238,33 +238,33 @@
         )
         VALUES
         <foreach collection="emps" item="emp" separator=",">
-        ( #{emp.name},
-        #{emp.gender},
-        #{emp.birthday},
-        #{emp.politicId},
-        #{emp.nationId},
-        #{emp.nativePlace},
-        #{emp.email},
-        #{emp.address},
-        #{emp.posId},
-        #{emp.jobLevelId},
-        #{emp.departmentId},
-        #{emp.phone},
-        #{emp.workID},
-        #{emp.tiptopDegree},
-        #{emp.school},
-        #{emp.specialty},
-        #{emp.beginDate},
-        #{emp.conversionTime},
-        #{emp.beginContract},
-        #{emp.endContract},
-        #{emp.idCard},
-        #{emp.engageForm},
-        #{emp.wedlock}
-        )
+            ( #{emp.name},
+            #{emp.gender},
+            #{emp.birthday},
+            #{emp.politicId},
+            #{emp.nationId},
+            #{emp.nativePlace},
+            #{emp.email},
+            #{emp.address},
+            #{emp.posId},
+            #{emp.jobLevelId},
+            #{emp.departmentId},
+            #{emp.phone},
+            #{emp.workID},
+            #{emp.tiptopDegree},
+            #{emp.school},
+            #{emp.specialty},
+            #{emp.beginDate},
+            #{emp.conversionTime},
+            #{emp.beginContract},
+            #{emp.endContract},
+            #{emp.idCard},
+            #{emp.engageForm},
+            #{emp.wedlock}
+            )
         </foreach>
     </insert>
-    
+
     <update id="updateEmp" parameterType="com.apkkids.myinfo_server.bean.Employee">
         UPDATE employee
         <set>
@@ -346,4 +346,45 @@
         </set>
         WHERE id = #{emp.id,jdbcType=BIGINT}
     </update>
+    <!--将emp以及他的工资套账一起选择出来-->
+    <select id="getEmployeeWithSalary" resultMap="BaseResultMap">
+SELECT
+	e.*,
+	d.`id` AS did,
+	d.`name` AS dname,
+	s.`id` AS sid,
+	s.`accumulationFundBase`,
+	s.`accumulationFundPer`,
+	s.`allSalary`,
+	s.`basicSalary`,
+	s.`bonus`,
+	s.`createDate`,
+	s.`lunchSalary`,
+	s.`medicalBase`,
+	s.`medicalPer`,
+	s.`name` AS sname,
+	s.`pensionBase`,
+	s.`pensionPer`,
+	s.`trafficSalary`
+FROM
+	employee e
+	LEFT JOIN department d ON e.`departmentId` = d.id
+	LEFT JOIN empsalary es ON es.`eid` = e.`id`
+	LEFT JOIN salary s ON s.`id` = es.`sid`
+ORDER BY
+	e.id
+	LIMIT #{start},#{size}
+    </select>
+
+    <update id="updateSalaryEmp">
+        UPDATE empsalary set sid = #{sid} WHERE eid = #{eid};
+    </update>
+
+    <select id="getSalaryEmpCount" resultType="int">
+        SELECT count(*) from empsalary WHERE eid = #{eid};
+    </select>
+
+    <insert id="addSalaryEmp">
+        INSERT into empsalary (eid,sid) VALUES (#{eid},#{sid});
+    </insert>
 </mapper>

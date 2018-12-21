@@ -48,6 +48,51 @@ public class Employee {
     private PoliticsStatus politicsStatus;
     private Salary salary;
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthday=" + birthday +
+                ", idCard='" + idCard + '\'' +
+                ", wedlock='" + wedlock + '\'' +
+                ", nationId=" + nationId +
+                ", nationName='" + nationName + '\'' +
+                ", nativePlace='" + nativePlace + '\'' +
+                ", politicName='" + politicName + '\'' +
+                ", politicId=" + politicId +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", departmentId=" + departmentId +
+                ", departmentName='" + departmentName + '\'' +
+                ", jobLevelId=" + jobLevelId +
+                ", jobLevelName='" + jobLevelName + '\'' +
+                ", posId=" + posId +
+                ", posName='" + posName + '\'' +
+                ", engageForm='" + engageForm + '\'' +
+                ", tiptopDegree='" + tiptopDegree + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", school='" + school + '\'' +
+                ", beginDate=" + beginDate +
+                ", workState='" + workState + '\'' +
+                ", workID='" + workID + '\'' +
+                ", contractTerm=" + contractTerm +
+                ", conversionTime=" + conversionTime +
+                ", notWorkDate=" + notWorkDate +
+                ", beginContract=" + beginContract +
+                ", endContract=" + endContract +
+                ", workAge=" + workAge +
+                ", department=" + department +
+                ", nation=" + nation +
+                ", jobLevel=" + jobLevel +
+                ", position=" + position +
+                ", politicsStatus=" + politicsStatus +
+                ", salary=" + salary +
+                '}';
+    }
+
     public Salary getSalary() {
         return salary;
     }
