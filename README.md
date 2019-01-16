@@ -22,7 +22,8 @@ https://www.liaoxuefeng.com/wiki/001508284671805d39d23243d884b8b99f440bfae87b0f4
 权限控制：role（角色）、menu(菜单)、menu_role
 系统管理：admin（管理员）、admin_role
 字典表：nation（国家）、position（职位）、joblevel（职级）、pliticstatus（政治身份）
-用户数据：employee（职员）、organization（组织）
+用户数据：employee（职员）、organization（组织，代表一个公司内部的多层组织架构）
+
 
 
 

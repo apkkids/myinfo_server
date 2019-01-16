@@ -91,4 +91,170 @@ INSERT INTO `menu` VALUES (6, '工资账套管理', '/salary/sob/**', '/sal/sob'
 INSERT INTO `menu` VALUES (7, '员工账套设置', '/salary/sobcfg/**', '/sal/sobcfg', 'SalSobCfg', 3, NULL, 1, now( ) , NULL);
 
 
+-- ----------------------------
+-- Table structure for nation
+-- ----------------------------
+DROP TABLE IF EXISTS `nation`;
+CREATE TABLE `nation`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `gmt_created` datetime(0) NOT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+INSERT INTO `nation` (name,gmt_created) VALUES ('汉族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('蒙古族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('回族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('藏族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('维吾尔族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('苗族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('彝族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('壮族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ('布依族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '朝鲜族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '满族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '侗族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '瑶族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '白族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '土家族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '哈尼族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '哈萨克族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '傣族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '黎族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '傈僳族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '佤族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '畲族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '高山族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '拉祜族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '水族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '东乡族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '纳西族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '景颇族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '柯尔克孜族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '土族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '达斡尔族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '仫佬族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '羌族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '布朗族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '撒拉族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '毛难族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '仡佬族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '锡伯族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '阿昌族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '普米族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '塔吉克族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '怒族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '乌孜别克族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '俄罗斯族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '鄂温克族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '崩龙族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '保安族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '裕固族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '京族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '塔塔尔族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '独龙族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '鄂伦春族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '赫哲族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '门巴族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '珞巴族', now() );
+INSERT INTO `nation` (name,gmt_created) VALUES ( '基诺族', now() );
+
+-- ----------------------------
+-- Table structure for position
+-- ----------------------------
+DROP TABLE IF EXISTS `position`;
+CREATE TABLE `position`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `gmt_created` datetime(0) NOT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典表，职位\r\n' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of position
+-- ----------------------------
+INSERT INTO `position` VALUES (1, '董事长', now(), NULL);
+INSERT INTO `position` VALUES (2, '总经理', now(), NULL);
+INSERT INTO `position` VALUES (3, '技术总监', now(), NULL);
+INSERT INTO `position` VALUES (4, '市场总监', now(), NULL);
+INSERT INTO `position` VALUES (5, '运营总监', now(), NULL);
+INSERT INTO `position` VALUES (6, '研发工程师', now(), NULL);
+INSERT INTO `position` VALUES (7, '测试工程师', now(), NULL);
+INSERT INTO `position` VALUES (8, '运维工程师',now(), NULL);
+INSERT INTO `position` VALUES (9, '行政人员', now(), NULL);
+INSERT INTO `position` VALUES (10, '财务人员',now(), NULL);
+
+-- ----------------------------
+-- Table structure for political_status
+-- ----------------------------
+DROP TABLE IF EXISTS `political_status`;
+CREATE TABLE `political_status`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `gmt_created` datetime(0) NOT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典表，政治面貌\r\n' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of political_status
+-- ----------------------------
+INSERT INTO `political_status` VALUES (1, '中共党员', now() , NULL);
+INSERT INTO `political_status` VALUES (2, '中共预备党员', now() , NULL);
+INSERT INTO `political_status` VALUES (3, '共青团员', now() , NULL);
+INSERT INTO `political_status` VALUES (4, '民革党员', now() , NULL);
+INSERT INTO `political_status` VALUES (5, '民盟盟员', now() , NULL);
+INSERT INTO `political_status` VALUES (6, '无党派民主人士', now() , NULL);
+INSERT INTO `political_status` VALUES (7, '普通公民', now() , NULL);
+
+-- ----------------------------
+-- Table structure for job_level
+-- ----------------------------
+DROP TABLE IF EXISTS `job_level`;
+CREATE TABLE `job_level`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `titlelevel` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `gmt_created` datetime(0) NOT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  `is_enabled` tinyint(1) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典表，职级' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of job_level
+-- ----------------------------
+INSERT INTO `job_level` VALUES (1, '初级工程师', '初级', now() , NULL, 1);
+INSERT INTO `job_level` VALUES (2, '工程师', '中级',  now(), NULL, 1);
+INSERT INTO `job_level` VALUES (3, '高级工程师', '高级',  now(), NULL, 1);
+
+-- ----------------------------
+-- Table structure for organization
+-- ----------------------------
+DROP TABLE IF EXISTS `organization`;
+CREATE TABLE `organization`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `parent_id` bigint(20) NOT NULL COMMENT '-1表示自己是根',
+  `is_enabled` tinyint(1) NOT NULL,
+  `is_parent` tinyint(1) NOT NULL COMMENT '1表示自己是parent,0表示自己是叶子组织',
+  `gmt_created` datetime(0) NOT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '组织架构表，代表了一个组织的层级结构\r\n' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of organization
+-- ----------------------------
+INSERT INTO `organization` VALUES (1, '董事会', -1, 1, 1,now(), NULL);
+INSERT INTO `organization` VALUES (2, '华东区', 1, 1, 1, now(), NULL);
+INSERT INTO `organization` VALUES (3, '华南区', 1, 1, 0, now(), NULL);
+INSERT INTO `organization` VALUES (4, '华西区', 1, 1, 0, now(), NULL);
+INSERT INTO `organization` VALUES (5, '华中区', 1, 1, 0, now(), NULL);
+INSERT INTO `organization` VALUES (6, '开发部', 2, 1, 0, now(), NULL);
+INSERT INTO `organization` VALUES (7, '行政部', 2, 1, 0, now(), NULL);
+INSERT INTO `organization` VALUES (8, '财务部', 2, 1, 0, now(), NULL);
+
 SET FOREIGN_KEY_CHECKS = 1;
