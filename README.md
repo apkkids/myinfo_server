@@ -19,8 +19,8 @@ https://www.liaoxuefeng.com/wiki/001508284671805d39d23243d884b8b99f440bfae87b0f4
 
 2.数据库设计原则：表分为几类，存储用户数据的数据表、用来进行权限控制的角色表和菜单表、
 用来进行系统管理的系统用户表、各类字典表，以及它们之间的关联表。
-权限控制：role（角色）、menu(菜单)、menu_role
-系统管理：admin（管理员）、admin_role
+权限控制：role（角色）、menu(菜单)、menu_role（菜单角色对应表）
+系统管理：admin（管理员）、admin_role(管理员角色对应表)
 字典表：nation（国家）、position（职位）、joblevel（职级）、pliticstatus（政治身份）
 用户数据：employee（职员）、organization（组织，代表一个公司内部的多层组织架构）
 

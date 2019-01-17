@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名称,以ROLE_开头',
   `name_ch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色中文名称',
   `gmt_created` datetime(0) NOT NULL COMMENT '角色创建时间',
@@ -42,7 +42,7 @@ INSERT into role (name,name_ch,gmt_created)  VALUES ('ROLE_performance','薪酬�
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员登录名称',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员登录密码，该密码是加密过的',
   `name_ch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员中文名称',
@@ -66,7 +66,7 @@ INSERT INTO admin ( username, password, name_ch, telephone, address, is_enabled,
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称（可以是中文）',
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '匹配的url',
   `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '对应的路径',
@@ -96,7 +96,7 @@ INSERT INTO `menu` VALUES (7, '员工账套设置', '/salary/sobcfg/**', '/sal/s
 -- ----------------------------
 DROP TABLE IF EXISTS `nation`;
 CREATE TABLE `nation`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gmt_created` datetime(0) NOT NULL,
   `gmt_modified` datetime(0) NULL DEFAULT NULL,
@@ -165,7 +165,7 @@ INSERT INTO `nation` (name,gmt_created) VALUES ( '基诺族', now() );
 -- ----------------------------
 DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gmt_created` datetime(0) NOT NULL,
   `gmt_modified` datetime(0) NULL DEFAULT NULL,
@@ -191,7 +191,7 @@ INSERT INTO `position` VALUES (10, '财务人员',now(), NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `political_status`;
 CREATE TABLE `political_status`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gmt_created` datetime(0) NOT NULL,
   `gmt_modified` datetime(0) NULL DEFAULT NULL,
@@ -214,7 +214,7 @@ INSERT INTO `political_status` VALUES (7, '普通公民', now() , NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `job_level`;
 CREATE TABLE `job_level`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `titlelevel` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gmt_created` datetime(0) NOT NULL,
@@ -235,7 +235,7 @@ INSERT INTO `job_level` VALUES (3, '高级工程师', '高级',  now(), NULL, 1)
 -- ----------------------------
 DROP TABLE IF EXISTS `organization`;
 CREATE TABLE `organization`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `parent_id` bigint(20) NOT NULL COMMENT '-1表示自己是根',
   `is_enabled` tinyint(1) NOT NULL,
@@ -256,5 +256,26 @@ INSERT INTO `organization` VALUES (5, '华中区', 1, 1, 0, now(), NULL);
 INSERT INTO `organization` VALUES (6, '开发部', 2, 1, 0, now(), NULL);
 INSERT INTO `organization` VALUES (7, '行政部', 2, 1, 0, now(), NULL);
 INSERT INTO `organization` VALUES (8, '财务部', 2, 1, 0, now(), NULL);
+
+-- ----------------------------
+-- Table structure for admin_role
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_role`;
+CREATE TABLE `admin_role`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `admin_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL,
+  `gmt_created` datetime(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `admin_role_fk1`(`admin_id`) USING BTREE,
+  INDEX `admin_role_fk2`(`role_id`) USING BTREE,
+  CONSTRAINT `admin_role_fk1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `admin_role_fk2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员-角色关联表' ROW_FORMAT = Compact;
+-- ----------------------------
+-- Records of admin_role
+-- ----------------------------
+INSERT INTO `admin_role` VALUES (1, 1, 1, now());
+INSERT INTO `admin_role` VALUES (2, 1, 3, now());
 
 SET FOREIGN_KEY_CHECKS = 1;
